@@ -11,19 +11,20 @@ import (
 	"time"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/shridarpatil/cloudysms/internal/assignment"
-	"github.com/shridarpatil/cloudysms/internal/calling"
-	"github.com/shridarpatil/cloudysms/internal/config"
-	"github.com/shridarpatil/cloudysms/internal/database"
-	"github.com/shridarpatil/cloudysms/internal/frontend"
-	"github.com/shridarpatil/cloudysms/internal/handlers"
-	"github.com/shridarpatil/cloudysms/internal/middleware"
-	"github.com/shridarpatil/cloudysms/internal/queue"
-	"github.com/shridarpatil/cloudysms/internal/storage"
-	"github.com/shridarpatil/cloudysms/internal/tts"
-	"github.com/shridarpatil/cloudysms/internal/websocket"
-	"github.com/shridarpatil/cloudysms/internal/worker"
-	"github.com/shridarpatil/cloudysms/pkg/whatsapp"
+	"github.com/shridarpatil/whatomate/internal/assignment"
+	"github.com/shridarpatil/whatomate/internal/billing"
+	"github.com/shridarpatil/whatomate/internal/calling"
+	"github.com/shridarpatil/whatomate/internal/config"
+	"github.com/shridarpatil/whatomate/internal/database"
+	"github.com/shridarpatil/whatomate/internal/frontend"
+	"github.com/shridarpatil/whatomate/internal/handlers"
+	"github.com/shridarpatil/whatomate/internal/middleware"
+	"github.com/shridarpatil/whatomate/internal/queue"
+	"github.com/shridarpatil/whatomate/internal/storage"
+	"github.com/shridarpatil/whatomate/internal/tts"
+	"github.com/shridarpatil/whatomate/internal/websocket"
+	"github.com/shridarpatil/whatomate/internal/worker"
+	"github.com/shridarpatil/whatomate/pkg/whatsapp"
 	"github.com/valyala/fasthttp"
 	"github.com/zerodha/fastglue"
 	"github.com/zerodha/logf"
@@ -207,6 +208,7 @@ func runServer(args []string) {
 		WSHub:      wsHub,
 		Queue:      jobQueue,
 		HTTPClient: httpClient,
+		Billing:    billing.NewStripeService(cfg),
 	}
 
 	// Initialize S3 client for call recordings (optional)
@@ -501,6 +503,8 @@ func setupRoutes(g *fastglue.Fastglue, app *handlers.App, lo logf.Logger, basePa
 	// Webhook routes (public - for Meta)
 	g.GET("/api/webhook", app.WebhookVerify)
 	g.POST("/api/webhook", app.WebhookHandler)
+	g.POST("/api/webhooks/stripe", app.HandleStripeWebhook)
+	g.POST("/api/billing/checkout", app.HandleCreateCheckoutSession)
 
 	// WebSocket route (auth via message-based flow after upgrade)
 	g.GET("/ws", app.WebSocketHandler)

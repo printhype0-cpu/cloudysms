@@ -93,6 +93,12 @@ type Organization struct {
 	Slug     string `gorm:"size:100;uniqueIndex;not null" json:"slug"`
 	Settings JSONB  `gorm:"type:jsonb;default:'{}'" json:"settings"`
 
+	// Billing (Stripe)
+	StripeCustomerID     string `gorm:"size:255" json:"stripe_customer_id"`
+	StripeSubscriptionID string `gorm:"size:255" json:"stripe_subscription_id"`
+	PlanTier             string `gorm:"size:50;default:'starter'" json:"plan_tier"`
+	SubscriptionStatus   string `gorm:"size:50;default:'active'" json:"subscription_status"`
+
 	// Relations
 	Users             []User             `gorm:"foreignKey:OrganizationID" json:"users,omitempty"`
 	UserOrganizations []UserOrganization `gorm:"foreignKey:OrganizationID" json:"user_organizations,omitempty"`

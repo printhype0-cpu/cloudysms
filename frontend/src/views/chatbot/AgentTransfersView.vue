@@ -316,11 +316,11 @@ function formatTimeRemaining(deadline: string | undefined): string {
 </script>
 
 <template>
-  <div class="flex flex-col h-full bg-[#0a0a0b] light:bg-gray-50">
+  <div class="flex flex-col h-full bg-[var(--bg-color)]">
     <PageHeader :title="$t('agentTransfers.title')" :subtitle="$t('agentTransfers.subtitle')" :icon="UserX" icon-gradient="bg-gradient-to-br from-red-500 to-orange-600 shadow-red-500/20">
       <template v-if="!isAdminOrManager" #actions>
         <div class="flex items-center gap-4">
-          <div class="text-sm text-white/50 light:text-gray-500">
+          <div class="text-sm text-[var(--text-muted)]">
             <Users class="h-4 w-4 inline mr-1" />
             {{ $t('agentTransfers.waitingInQueue', { count: transfersStore.queueCount }) }}
           </div>
@@ -350,8 +350,8 @@ function formatTimeRemaining(deadline: string | undefined): string {
       <div class="p-6 space-y-6">
         <!-- Loading skeleton -->
         <div v-if="isLoading" class="space-y-4">
-          <Skeleton class="h-12 w-full bg-white/[0.08] light:bg-gray-200 rounded-xl" />
-          <Skeleton class="h-64 w-full bg-white/[0.08] light:bg-gray-200 rounded-xl" />
+          <Skeleton class="h-12 w-full bg-[var(--glass-border)] rounded-xl" />
+          <Skeleton class="h-64 w-full bg-[var(--glass-border)] rounded-xl" />
         </div>
 
         <!-- Error state -->
@@ -367,11 +367,11 @@ function formatTimeRemaining(deadline: string | undefined): string {
         <div v-else-if="!isAdminOrManager">
           <div class="rounded-xl border border-white/[0.08] bg-white/[0.02] light:bg-white light:border-gray-200">
             <div class="p-6">
-              <h3 class="text-lg font-semibold text-white light:text-gray-900">{{ $t('agentTransfers.myTransfers') }}</h3>
-              <p class="text-sm text-white/50 light:text-gray-500">{{ $t('agentTransfers.contactsTransferred') }}</p>
+              <h3 class="text-lg font-semibold text-[var(--text-main)]">{{ $t('agentTransfers.myTransfers') }}</h3>
+              <p class="text-sm text-[var(--text-muted)]">{{ $t('agentTransfers.contactsTransferred') }}</p>
             </div>
             <div class="px-6 pb-6">
-              <div v-if="myTransfers.length === 0" class="text-center py-8 text-white/50 light:text-gray-500">
+              <div v-if="myTransfers.length === 0" class="text-center py-8 text-[var(--text-muted)]">
                 <div class="h-16 w-16 rounded-xl bg-red-500/20 flex items-center justify-center mx-auto mb-4">
                   <UserX class="h-8 w-8 text-red-400" />
                 </div>

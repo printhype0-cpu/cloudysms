@@ -99,7 +99,7 @@ async function confirmDelete() {
 </script>
 
 <template>
-  <div class="flex flex-col h-full bg-[#0a0a0b] light:bg-gray-50">
+  <div class="flex flex-col h-full bg-[var(--bg-color)]">
     <PageHeader
       :title="$t('accounts.title')"
       :icon="Phone"
@@ -156,7 +156,7 @@ async function confirmDelete() {
                 <template #cell-account="{ item: account }">
                   <RouterLink :to="`/settings/accounts/${account.id}`" class="flex items-center gap-3 text-inherit no-underline hover:opacity-80">
                     <div class="h-9 w-9 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
-                      <Phone class="h-4 w-4 text-emerald-500" />
+                      <Phone class="h-4 w-4 text-[var(--primary-color)]" />
                     </div>
                     <p class="font-medium truncate">{{ account.name }}</p>
                   </RouterLink>

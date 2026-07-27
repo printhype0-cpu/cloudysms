@@ -1,12 +1,44 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useSeo } from '@/composables/useSeo'
 import MarketingLayout from '@/components/layout/MarketingLayout.vue'
 import { CheckCircle2, X } from 'lucide-vue-next'
+import { useAuthStore } from '@/stores/auth'
+import api from '@/services/api' // Assuming API service exists
+
+const router = useRouter()
+const authStore = useAuthStore()
+const isLoading = ref(false)
 
 useSeo({
   title: 'Pricing - CloudySMS',
   description: 'Simple, transparent pricing. Start for free and upgrade when you need more power.'
 })
+
+const subscribePro = async () => {
+  if (!authStore.isAuthenticated) {
+    router.push('/login?redirect=/pricing')
+    return
+  }
+
+  try {
+    isLoading.value = true
+    const response = await api.post('/billing/checkout', {
+      success_url: window.location.origin + '/billing/success',
+      cancel_url: window.location.origin + '/billing/cancel'
+    })
+    
+    if (response.data && response.data.url) {
+      window.location.href = response.data.url // Redirect to Stripe
+    }
+  } catch (error) {
+    console.error('Checkout failed:', error)
+    alert('Failed to start checkout. Please try again.')
+  } finally {
+    isLoading.value = false
+  }
+}
 </script>
 
 <template>
@@ -52,7 +84,9 @@ useSeo({
             <li><CheckCircle2 class="check" /> Role-based Access</li>
             <li><CheckCircle2 class="check" /> Priority Support</li>
           </ul>
-          <button class="btn btn-primary w-full mt-auto">Start Free Trial</button>
+          <button @click="subscribePro" :disabled="isLoading" class="btn btn-primary w-full mt-auto">
+            {{ isLoading ? 'Processing...' : 'Start Free Trial' }}
+          </button>
         </div>
         
         <!-- Enterprise Plan -->

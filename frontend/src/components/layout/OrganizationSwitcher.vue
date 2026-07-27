@@ -119,17 +119,17 @@ const refreshOrgs = async () => {
 </script>
 
 <template>
-  <div v-if="shouldShowSwitcher" class="px-2 py-2 border-b">
+  <div v-if="shouldShowSwitcher" class="px-2 py-2 border-b border-[var(--glass-border)]">
     <div v-if="!collapsed" class="space-y-1">
       <div class="flex items-center justify-between">
-        <span class="text-[11px] font-medium text-muted-foreground uppercase tracking-wide px-1">
+        <span class="text-[11px] font-medium text-[var(--text-muted)] uppercase tracking-wide px-1">
           Organization
         </span>
         <Button
           v-if="canCreateOrg"
           variant="ghost"
           size="icon"
-          class="h-5 w-5"
+          class="h-5 w-5 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--glass-bg)]"
           @click="isCreateDialogOpen = true"
         >
           <Plus class="h-3 w-3" />

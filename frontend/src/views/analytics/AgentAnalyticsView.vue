@@ -378,12 +378,12 @@ void _displayStats.value // Suppress unused warning
           <template v-if="isLoading">
             <div v-for="i in 5" :key="i" class="rounded-xl border border-white/[0.08] bg-white/[0.02] p-6 light:bg-white light:border-gray-200">
               <div class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <Skeleton class="h-4 w-24 bg-white/[0.08] light:bg-gray-200" />
-                <Skeleton class="h-10 w-10 rounded-lg bg-white/[0.08] light:bg-gray-200" />
+                <Skeleton class="h-4 w-24 bg-[var(--glass-border)]" />
+                <Skeleton class="h-10 w-10 rounded-lg bg-[var(--glass-border)]" />
               </div>
               <div class="pt-2">
-                <Skeleton class="h-8 w-20 mb-2 bg-white/[0.08] light:bg-gray-200" />
-                <Skeleton class="h-3 w-32 bg-white/[0.08] light:bg-gray-200" />
+                <Skeleton class="h-8 w-20 mb-2 bg-[var(--glass-border)]" />
+                <Skeleton class="h-3 w-32 bg-[var(--glass-border)]" />
               </div>
             </div>
           </template>
@@ -391,100 +391,100 @@ void _displayStats.value // Suppress unused warning
             <!-- Transfers Handled -->
             <div class="card-depth rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 light:bg-white light:border-gray-200">
               <div class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <span class="text-sm font-medium text-white/50 light:text-gray-500">{{ $t('agentAnalytics.transfersHandled') }}</span>
+                <span class="text-sm font-medium text-[var(--text-muted)]">{{ $t('agentAnalytics.transfersHandled') }}</span>
                 <div class="h-10 w-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
-                  <CheckCircle class="h-5 w-5 text-emerald-400" />
+                  <CheckCircle class="h-5 w-5 text-[var(--primary-color)]" />
                 </div>
               </div>
               <div class="pt-2">
-                <div class="text-3xl font-bold text-white light:text-gray-900">
+                <div class="text-3xl font-bold text-[var(--text-main)]">
                   {{ selectedAgentId === 'all'
                     ? (analytics.summary?.total_transfers_handled ?? 0)
                     : (analytics.my_stats?.transfers_handled ?? 0) }}
                 </div>
-                <p class="text-xs text-white/40 light:text-gray-500 mt-1">{{ $t('agentAnalytics.completedConversations') }}</p>
+                <p class="text-xs text-[var(--text-muted)] mt-1">{{ $t('agentAnalytics.completedConversations') }}</p>
               </div>
             </div>
 
             <!-- Active Conversations -->
             <div class="card-depth rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 light:bg-white light:border-gray-200">
               <div class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <span class="text-sm font-medium text-white/50 light:text-gray-500">{{ $t('agentAnalytics.activeConversations') }}</span>
+                <span class="text-sm font-medium text-[var(--text-muted)]">{{ $t('agentAnalytics.activeConversations') }}</span>
                 <div class="h-10 w-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
                   <Activity class="h-5 w-5 text-blue-400" />
                 </div>
               </div>
               <div class="pt-2">
-                <div class="text-3xl font-bold text-white light:text-gray-900">
+                <div class="text-3xl font-bold text-[var(--text-main)]">
                   {{ selectedAgentId === 'all'
                     ? (analytics.summary?.active_transfers ?? 0)
                     : (analytics.my_stats?.active_transfers ?? 0) }}
                 </div>
-                <p class="text-xs text-white/40 light:text-gray-500 mt-1">{{ $t('agentAnalytics.currentlyInProgress') }}</p>
+                <p class="text-xs text-[var(--text-muted)] mt-1">{{ $t('agentAnalytics.currentlyInProgress') }}</p>
               </div>
             </div>
 
             <!-- Avg Resolution Time -->
             <div class="card-depth rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 light:bg-white light:border-gray-200">
               <div class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <span class="text-sm font-medium text-white/50 light:text-gray-500">{{ $t('agentAnalytics.avgResolutionTime') }}</span>
+                <span class="text-sm font-medium text-[var(--text-muted)]">{{ $t('agentAnalytics.avgResolutionTime') }}</span>
                 <div class="h-10 w-10 rounded-lg bg-orange-500/20 flex items-center justify-center">
                   <Clock class="h-5 w-5 text-orange-400" />
                 </div>
               </div>
               <div class="pt-2">
-                <div class="text-3xl font-bold text-white light:text-gray-900">
+                <div class="text-3xl font-bold text-[var(--text-main)]">
                   {{ formatMinutes(selectedAgentId === 'all'
                     ? (analytics.summary?.avg_resolution_mins ?? 0)
                     : (analytics.my_stats?.avg_resolution_mins ?? 0)) }}
                 </div>
-                <p class="text-xs text-white/40 light:text-gray-500 mt-1">{{ $t('agentAnalytics.timeToResolve') }}</p>
+                <p class="text-xs text-[var(--text-muted)] mt-1">{{ $t('agentAnalytics.timeToResolve') }}</p>
               </div>
             </div>
 
             <!-- Messages Sent (for specific agent) or Queue Time (for all agents) -->
             <div v-if="isAdminOrManager && selectedAgentId === 'all'" class="card-depth rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 light:bg-white light:border-gray-200">
               <div class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <span class="text-sm font-medium text-white/50 light:text-gray-500">{{ $t('agentAnalytics.avgQueueTime') }}</span>
+                <span class="text-sm font-medium text-[var(--text-muted)]">{{ $t('agentAnalytics.avgQueueTime') }}</span>
                 <div class="h-10 w-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
                   <Clock class="h-5 w-5 text-purple-400" />
                 </div>
               </div>
               <div class="pt-2">
-                <div class="text-3xl font-bold text-white light:text-gray-900">
+                <div class="text-3xl font-bold text-[var(--text-main)]">
                   {{ formatMinutes(analytics.summary?.avg_queue_time_mins || 0) }}
                 </div>
-                <p class="text-xs text-white/40 light:text-gray-500 mt-1">{{ $t('agentAnalytics.waitBeforeAssignment') }}</p>
+                <p class="text-xs text-[var(--text-muted)] mt-1">{{ $t('agentAnalytics.waitBeforeAssignment') }}</p>
               </div>
             </div>
             <div v-else class="card-depth rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 light:bg-white light:border-gray-200">
               <div class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <span class="text-sm font-medium text-white/50 light:text-gray-500">{{ $t('agentAnalytics.messagesSent') }}</span>
+                <span class="text-sm font-medium text-[var(--text-muted)]">{{ $t('agentAnalytics.messagesSent') }}</span>
                 <div class="h-10 w-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
                   <MessageSquare class="h-5 w-5 text-purple-400" />
                 </div>
               </div>
               <div class="pt-2">
-                <div class="text-3xl font-bold text-white light:text-gray-900">
+                <div class="text-3xl font-bold text-[var(--text-main)]">
                   {{ analytics.my_stats?.messages_sent || 0 }}
                 </div>
-                <p class="text-xs text-white/40 light:text-gray-500 mt-1">{{ $t('agentAnalytics.outgoingMessages') }}</p>
+                <p class="text-xs text-[var(--text-muted)] mt-1">{{ $t('agentAnalytics.outgoingMessages') }}</p>
               </div>
             </div>
 
             <!-- Break Time -->
             <div class="card-depth rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 light:bg-white light:border-gray-200">
               <div class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <span class="text-sm font-medium text-white/50 light:text-gray-500">{{ $t('agentAnalytics.breakTime') }}</span>
+                <span class="text-sm font-medium text-[var(--text-muted)]">{{ $t('agentAnalytics.breakTime') }}</span>
                 <div class="h-10 w-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
                   <Coffee class="h-5 w-5 text-amber-400" />
                 </div>
               </div>
               <div class="pt-2">
-                <div class="text-3xl font-bold text-white light:text-gray-900">
+                <div class="text-3xl font-bold text-[var(--text-main)]">
                   {{ formatMinutes(analytics.my_stats?.total_break_time_mins ?? analytics.summary?.total_break_time_mins ?? 0) }}
                 </div>
-                <p class="text-xs text-white/40 light:text-gray-500 mt-1">
+                <p class="text-xs text-[var(--text-muted)] mt-1">
                   {{ $t('agentAnalytics.breaksTaken', { count: analytics.my_stats?.break_count ?? analytics.summary?.break_count ?? 0 }) }}
                 </p>
               </div>

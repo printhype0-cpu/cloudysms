@@ -24,6 +24,13 @@ type Config struct {
 	Cookie       CookieConfig       `koanf:"cookie"`
 	Calling      CallingConfig      `koanf:"calling"`
 	TTS          TTSConfig          `koanf:"tts"`
+	Stripe       StripeConfig       `koanf:"stripe"`
+}
+
+type StripeConfig struct {
+	SecretKey     string `koanf:"secret_key"`
+	WebhookSecret string `koanf:"webhook_secret"`
+	PriceID       string `koanf:"price_id"`
 }
 
 type TTSConfig struct {

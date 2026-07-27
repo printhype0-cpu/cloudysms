@@ -118,3 +118,8 @@ udp_port_max = 10100          # WebRTC UDP port range end
 email = "admin@admin.com"
 password = "admin"
 full_name = "Admin"
+
+[stripe]
+secret_key = "sk_test_..."
+webhook_secret = "whsec_..."
+price_id = "price_..."

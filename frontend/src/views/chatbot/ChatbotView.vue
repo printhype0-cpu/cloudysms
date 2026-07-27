@@ -124,7 +124,7 @@ const statCards = computed(() => [
 </script>
 
 <template>
-  <div class="flex flex-col h-full bg-[#0a0a0b] light:bg-gray-50">
+  <div class="flex flex-col h-full bg-[var(--bg-color)]">
     <PageHeader
       :title="$t('chatbot.title')"
       :description="$t('chatbot.subtitle')"
@@ -134,7 +134,7 @@ const statCards = computed(() => [
       <template #actions>
         <div class="flex items-center gap-3">
           <Badge
-            :class="settings.enabled ? 'bg-emerald-500/20 text-emerald-400 light:bg-emerald-100 light:text-emerald-700' : 'bg-white/[0.08] text-white/50 light:bg-gray-100 light:text-gray-500'"
+            :class="settings.enabled ? 'bg-emerald-500/20 text-[var(--primary-color)] light:bg-emerald-100 light:text-emerald-700' : 'bg-white/[0.08] text-white/50 light:bg-gray-100 light:text-gray-500'"
           >
             {{ settings.enabled ? $t('chatbot.active') : $t('chatbot.inactive') }}
           </Badge>
@@ -143,7 +143,7 @@ const statCards = computed(() => [
             size="sm"
             @click="showToggleConfirm = true"
             :disabled="isToggling"
-            :class="settings.enabled ? 'border-red-500/50 text-red-400 hover:bg-red-500/10' : 'border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10'"
+            :class="settings.enabled ? 'border-red-500/50 text-red-400 hover:bg-red-500/10' : 'border-[var(--primary-color)]/50 text-[var(--primary-color)] hover:bg-emerald-500/10'"
           >
             <Power class="h-4 w-4 mr-2" />
             {{ settings.enabled ? $t('chatbot.disable') : $t('chatbot.enable') }}
@@ -182,11 +182,11 @@ const statCards = computed(() => [
           <template v-if="isLoading">
             <div v-for="i in 4" :key="i" class="rounded-xl border border-white/[0.08] bg-white/[0.02] p-6 light:bg-white light:border-gray-200">
               <div class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <Skeleton class="h-4 w-24 bg-white/[0.08] light:bg-gray-200" />
-                <Skeleton class="h-10 w-10 rounded-lg bg-white/[0.08] light:bg-gray-200" />
+                <Skeleton class="h-4 w-24 bg-[var(--glass-border)]" />
+                <Skeleton class="h-10 w-10 rounded-lg bg-[var(--glass-border)]" />
               </div>
               <div class="pt-2">
-                <Skeleton class="h-8 w-16 bg-white/[0.08] light:bg-gray-200" />
+                <Skeleton class="h-8 w-16 bg-[var(--glass-border)]" />
               </div>
             </div>
           </template>
@@ -194,7 +194,7 @@ const statCards = computed(() => [
           <template v-else>
             <div v-for="card in statCards" :key="card.key" class="card-depth rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 light:bg-white light:border-gray-200">
               <div class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <span class="text-sm font-medium text-white/50 light:text-gray-500">{{ card.title }}</span>
+                <span class="text-sm font-medium text-[var(--text-muted)]">{{ card.title }}</span>
                 <div :class="[
                   'h-10 w-10 rounded-lg flex items-center justify-center',
                   card.key === 'total_sessions' ? 'bg-blue-500/20' : '',
@@ -205,14 +205,14 @@ const statCards = computed(() => [
                   <component :is="card.icon" :class="[
                     'h-5 w-5',
                     card.key === 'total_sessions' ? 'text-blue-400' : '',
-                    card.key === 'active_sessions' ? 'text-emerald-400' : '',
+                    card.key === 'active_sessions' ? 'text-[var(--primary-color)]' : '',
                     card.key === 'messages_handled' ? 'text-purple-400' : '',
                     card.key === 'ai_responses' ? 'text-orange-400' : ''
                   ]" />
                 </div>
               </div>
               <div class="pt-2">
-                <div class="text-3xl font-bold text-white light:text-gray-900">
+                <div class="text-3xl font-bold text-[var(--text-main)]">
                   {{ stats[card.key as keyof Stats].toLocaleString() }}
                 </div>
               </div>
@@ -229,8 +229,8 @@ const statCards = computed(() => [
                   <Key class="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 class="text-lg font-semibold text-white light:text-gray-900">{{ $t('chatbot.keywordRules') }}</h3>
-                  <p class="text-sm text-white/40 light:text-gray-500">{{ $t('chatbot.rulesConfigured', { count: stats.keywords_count }) }}</p>
+                  <h3 class="text-lg font-semibold text-[var(--text-main)]">{{ $t('chatbot.keywordRules') }}</h3>
+                  <p class="text-sm text-[var(--text-muted)]">{{ $t('chatbot.rulesConfigured', { count: stats.keywords_count }) }}</p>
                 </div>
               </div>
             </div>
@@ -248,8 +248,8 @@ const statCards = computed(() => [
                   <Workflow class="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 class="text-lg font-semibold text-white light:text-gray-900">{{ $t('chatbot.conversationFlows') }}</h3>
-                  <p class="text-sm text-white/40 light:text-gray-500">{{ $t('chatbot.flowsCreated', { count: stats.flows_count }) }}</p>
+                  <h3 class="text-lg font-semibold text-[var(--text-main)]">{{ $t('chatbot.conversationFlows') }}</h3>
+                  <p class="text-sm text-[var(--text-muted)]">{{ $t('chatbot.flowsCreated', { count: stats.flows_count }) }}</p>
                 </div>
               </div>
             </div>
@@ -267,8 +267,8 @@ const statCards = computed(() => [
                   <Sparkles class="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 class="text-lg font-semibold text-white light:text-gray-900">{{ $t('chatbot.aiContexts') }}</h3>
-                  <p class="text-sm text-white/40 light:text-gray-500">{{ $t('chatbot.contextsActive', { count: stats.ai_contexts_count }) }}</p>
+                  <h3 class="text-lg font-semibold text-[var(--text-main)]">{{ $t('chatbot.aiContexts') }}</h3>
+                  <p class="text-sm text-[var(--text-muted)]">{{ $t('chatbot.contextsActive', { count: stats.ai_contexts_count }) }}</p>
                 </div>
               </div>
             </div>
@@ -285,8 +285,8 @@ const statCards = computed(() => [
           <div class="p-6">
             <div class="flex items-center justify-between">
               <div>
-                <h3 class="text-lg font-semibold text-white light:text-gray-900">{{ $t('chatbot.currentConfiguration') }}</h3>
-                <p class="text-sm text-white/40 light:text-gray-500">{{ $t('chatbot.configOverview') }}</p>
+                <h3 class="text-lg font-semibold text-[var(--text-main)]">{{ $t('chatbot.currentConfiguration') }}</h3>
+                <p class="text-sm text-[var(--text-muted)]">{{ $t('chatbot.configOverview') }}</p>
               </div>
               <RouterLink to="/app/settings/chatbot">
                 <Button variant="outline" size="sm">
@@ -299,28 +299,28 @@ const statCards = computed(() => [
           <div class="px-6 pb-6">
             <div class="grid gap-4 md:grid-cols-2">
               <div class="space-y-2">
-                <h4 class="font-medium text-sm text-white/70 light:text-gray-700">{{ $t('chatbot.greetingMessage') }}</h4>
-                <p class="text-sm text-white/50 light:text-gray-600 bg-white/[0.04] light:bg-gray-100 p-3 rounded-lg">
+                <h4 class="font-medium text-sm text-[var(--text-main)]">{{ $t('chatbot.greetingMessage') }}</h4>
+                <p class="text-sm text-white/50 light:text-gray-600 bg-[var(--glass-bg)] p-3 rounded-lg">
                   {{ settings.greeting_message || $t('chatbot.notConfigured') }}
                 </p>
               </div>
               <div class="space-y-2">
-                <h4 class="font-medium text-sm text-white/70 light:text-gray-700">{{ $t('chatbot.fallbackMessage') }}</h4>
-                <p class="text-sm text-white/50 light:text-gray-600 bg-white/[0.04] light:bg-gray-100 p-3 rounded-lg">
+                <h4 class="font-medium text-sm text-[var(--text-main)]">{{ $t('chatbot.fallbackMessage') }}</h4>
+                <p class="text-sm text-white/50 light:text-gray-600 bg-[var(--glass-bg)] p-3 rounded-lg">
                   {{ settings.fallback_message || $t('chatbot.notConfigured') }}
                 </p>
               </div>
               <div class="space-y-2">
-                <h4 class="font-medium text-sm text-white/70 light:text-gray-700">{{ $t('chatbot.sessionTimeout') }}</h4>
+                <h4 class="font-medium text-sm text-[var(--text-main)]">{{ $t('chatbot.sessionTimeout') }}</h4>
                 <div class="flex items-center gap-2 text-sm text-white/50 light:text-gray-600">
                   <Clock class="h-4 w-4" />
                   {{ $t('chatbot.minutes', { count: settings.session_timeout_minutes }) }}
                 </div>
               </div>
               <div class="space-y-2">
-                <h4 class="font-medium text-sm text-white/70 light:text-gray-700">{{ $t('chatbot.aiProvider') }}</h4>
+                <h4 class="font-medium text-sm text-[var(--text-main)]">{{ $t('chatbot.aiProvider') }}</h4>
                 <div class="flex items-center gap-2">
-                  <Badge v-if="settings.ai_enabled" class="bg-emerald-500/20 text-emerald-400 light:bg-emerald-100 light:text-emerald-700">
+                  <Badge v-if="settings.ai_enabled" class="bg-emerald-500/20 text-[var(--primary-color)] light:bg-emerald-100 light:text-emerald-700">
                     {{ settings.ai_provider || $t('chatbot.notConfigured') }}
                   </Badge>
                   <Badge v-else class="bg-white/[0.08] text-white/50 light:bg-gray-100 light:text-gray-500">{{ $t('chatbot.disabled') }}</Badge>

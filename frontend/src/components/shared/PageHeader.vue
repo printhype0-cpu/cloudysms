@@ -22,38 +22,38 @@ defineProps<{
 </script>
 
 <template>
-  <header class="border-b border-white/[0.08] light:border-gray-200 bg-[#0a0a0b]/95 light:bg-white/95 backdrop-blur">
+  <header class="border-b border-[var(--glass-border)] bg-[var(--bg-color)]/95 backdrop-blur">
     <div class="flex h-16 items-center px-6">
       <RouterLink v-if="backLink" :to="backLink">
-        <Button variant="ghost" size="icon" class="mr-3">
+        <Button variant="ghost" size="icon" class="mr-3 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--glass-bg)]">
           <ArrowLeft class="h-5 w-5" />
         </Button>
       </RouterLink>
       <div
         v-if="icon"
         class="h-8 w-8 rounded-lg flex items-center justify-center mr-3 shadow-lg"
-        :class="iconGradient || 'bg-gradient-to-br from-blue-500 to-indigo-600 shadow-blue-500/20'"
+        :class="iconGradient || 'bg-gradient-to-br from-[var(--primary-color)] to-[var(--primary-dark)] shadow-[var(--primary-color)]/20'"
       >
         <component :is="icon" class="h-4 w-4 text-white" />
       </div>
       <div class="flex-1">
-        <h1 class="text-xl font-semibold text-white light:text-gray-900">{{ title }}</h1>
+        <h1 class="text-xl font-semibold text-[var(--text-main)]">{{ title }}</h1>
         <template v-if="breadcrumbs?.length">
           <Breadcrumb>
             <BreadcrumbList>
               <template v-for="(crumb, index) in breadcrumbs" :key="index">
                 <BreadcrumbItem>
-                  <BreadcrumbLink v-if="crumb.href" :href="crumb.href">
+                  <BreadcrumbLink v-if="crumb.href" :href="crumb.href" class="text-[var(--text-muted)] hover:text-[var(--text-main)]">
                     {{ crumb.label }}
                   </BreadcrumbLink>
-                  <BreadcrumbPage v-else>{{ crumb.label }}</BreadcrumbPage>
+                  <BreadcrumbPage v-else class="text-[var(--text-main)]">{{ crumb.label }}</BreadcrumbPage>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator v-if="index < breadcrumbs.length - 1" />
+                <BreadcrumbSeparator v-if="index < breadcrumbs.length - 1" class="text-[var(--text-muted)]" />
               </template>
             </BreadcrumbList>
           </Breadcrumb>
         </template>
-        <p v-else-if="description" class="text-sm text-white/50 light:text-gray-500">
+        <p v-else-if="description" class="text-sm text-[var(--text-muted)]">
           {{ description }}
         </p>
       </div>

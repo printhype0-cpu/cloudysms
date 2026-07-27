@@ -228,7 +228,7 @@ const getStarted = () => {
 }
 
 .footer-content {
-  max-width: 1400px;
+  max-width: none;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;

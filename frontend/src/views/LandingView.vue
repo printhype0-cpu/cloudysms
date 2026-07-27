@@ -422,9 +422,10 @@ const getStarted = () => {
   z-index: 10;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 6rem 1.5rem;
   gap: 4rem;
-  max-width: 1400px;
+  max-width: none;
   margin: 0 auto;
 }
 
@@ -621,7 +622,7 @@ const getStarted = () => {
 /* Common Sections */
 .section-container {
   padding: 6rem 1.5rem;
-  max-width: 1400px;
+  max-width: none;
   margin: 0 auto;
   position: relative;
   z-index: 10;
@@ -634,7 +635,7 @@ const getStarted = () => {
 }
 
 .alternate-bg > * {
-  max-width: 1400px;
+  max-width: none;
   margin: 0 auto;
 }
 

@@ -421,12 +421,11 @@ const getStarted = () => {
   position: relative;
   z-index: 10;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
+  justify-content: space-between;
   padding: 8rem 2rem 4rem;
   gap: 4rem;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -444,11 +443,9 @@ const getStarted = () => {
 }
 
 .hero-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 800px;
-  width: 100%;
+  flex: 1;
+  text-align: left;
+  max-width: 650px;
 }
 
 .badge {
@@ -493,22 +490,22 @@ const getStarted = () => {
   font-size: 1.25rem;
   line-height: 1.6;
   color: var(--text-muted);
-  margin: 0 auto 2.5rem;
+  margin-bottom: 2.5rem;
   max-width: 650px;
 }
 
 .hero-actions {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1rem;
 }
 
 /* Hero Visual (Glassmorphism Mockup) */
 .hero-visual {
+  flex: 1;
   width: 100%;
-  max-width: 1000px;
+  max-width: 600px;
   perspective: 1200px;
-  margin: 0 auto;
 }
 
 .glass-panel {

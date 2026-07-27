@@ -423,9 +423,9 @@ const getStarted = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6rem 1.5rem;
+  padding: 6rem 4rem;
   gap: 4rem;
-  max-width: 1600px;
+  max-width: none;
   margin: 0 auto;
 }
 
@@ -488,6 +488,7 @@ const getStarted = () => {
 /* Hero Visual (Glassmorphism Mockup) */
 .hero-visual {
   flex: 1;
+  max-width: 800px;
   perspective: 1000px;
 }
 

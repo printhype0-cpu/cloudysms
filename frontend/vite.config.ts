@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import compression from 'vite-plugin-compression'
 
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [
     vue(),
     // Gzip compression

@@ -250,7 +250,7 @@ function getProgressPercentage(campaign: Campaign): number {
       icon-gradient="bg-gradient-to-br from-rose-500 to-pink-600 shadow-rose-500/20"
     >
       <template #actions>
-        <RouterLink to="/campaigns/new">
+        <RouterLink to="/app/campaigns/new">
           <Button variant="outline" size="sm">
             <Plus class="h-4 w-4 mr-2" />
             {{ $t('campaigns.createCampaign') }}
@@ -359,7 +359,7 @@ function getProgressPercentage(campaign: Campaign): number {
                   </div>
                 </template>
                 <template #empty-action>
-                  <RouterLink v-if="!searchQuery" to="/campaigns/new">
+                  <RouterLink v-if="!searchQuery" to="/app/campaigns/new">
                     <Button variant="outline" size="sm">
                       <Plus class="h-4 w-4 mr-2" />
                       {{ $t('campaigns.createCampaign') }}

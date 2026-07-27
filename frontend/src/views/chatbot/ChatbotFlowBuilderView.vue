@@ -621,13 +621,13 @@ function handleCancel() {
   if (hasUnsavedChanges.value) {
     cancelDialogOpen.value = true
   } else {
-    router.push('/chatbot/flows')
+    router.push('/app/chatbot/flows')
   }
 }
 
 function confirmCancel() {
   cancelDialogOpen.value = false
-  router.push('/chatbot/flows')
+  router.push('/app/chatbot/flows')
 }
 
 // Webhook headers helpers (flow-level completion)
@@ -739,7 +739,7 @@ onMounted(async () => {
         >
           <template #action>
             <div class="flex gap-2">
-              <Button variant="outline" size="sm" @click="router.push('/chatbot/flows')">
+              <Button variant="outline" size="sm" @click="router.push('/app/chatbot/flows')">
                 {{ $t('common.goBack', 'Go back') }}
               </Button>
               <Button size="sm" @click="loadFlow">

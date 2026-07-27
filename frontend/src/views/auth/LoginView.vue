@@ -10,8 +10,14 @@ import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { toast } from 'vue-sonner'
 import { MessageSquare, Loader2 } from 'lucide-vue-next'
+import { useSeo } from '@/composables/useSeo'
 
 const { t } = useI18n()
+
+useSeo({
+  title: 'Log In',
+  description: 'Access your CloudySMS account to manage conversations and automated workflows.'
+})
 
 interface SSOProvider {
   provider: string
@@ -76,7 +82,7 @@ const handleLogin = async () => {
     toast.success(t('auth.loginSuccess'))
 
     const redirect = route.query.redirect as string
-    router.push(redirect || '/')
+    router.push(redirect || '/app/dashboard')
   } catch (error: any) {
     const message = error.response?.data?.message || t('auth.invalidCredentials')
     toast.error(message)

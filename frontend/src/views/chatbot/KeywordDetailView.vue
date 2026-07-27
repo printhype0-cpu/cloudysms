@@ -186,7 +186,7 @@ async function deleteKeyword() {
   try {
     await chatbotService.deleteKeyword(keyword.value.id)
     toast.success(t('common.deletedSuccess', { resource: t('resources.KeywordRule', 'Keyword Rule') }))
-    router.push('/chatbot/keywords')
+    router.push('/app/chatbot/keywords')
   } catch (error: any) {
     toast.error(getErrorMessage(error, t('common.failedDelete', { resource: t('resources.keywordRule', 'keyword rule') })))
   }

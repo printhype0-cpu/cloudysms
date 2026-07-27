@@ -162,7 +162,7 @@ async function deleteUser() {
     toast.success(isMember.value
       ? t('users.memberRemoved')
       : t('common.deletedSuccess', { resource: t('resources.User') }))
-    router.push('/settings/users')
+    router.push('/app/settings/users')
   } catch (e) {
     toast.error(getErrorMessage(e, t('common.failedDelete', { resource: t('resources.user') })))
   }

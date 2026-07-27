@@ -9,8 +9,14 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'vue-sonner'
 import { MessageSquare, Loader2 } from 'lucide-vue-next'
+import { useSeo } from '@/composables/useSeo'
 
 const { t } = useI18n()
+
+useSeo({
+  title: 'Sign Up',
+  description: 'Create a new CloudySMS account and start automating your WhatsApp communication.'
+})
 const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
@@ -54,7 +60,7 @@ const handleRegister = async () => {
       organization_id: organizationId.value
     })
     toast.success(t('auth.registrationSuccess'))
-    router.push('/')
+    router.push('/app/dashboard')
   } catch (error: any) {
     const message = error.response?.data?.message || t('auth.registrationFailed')
     toast.error(message)

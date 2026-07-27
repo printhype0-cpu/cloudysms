@@ -57,6 +57,7 @@ interface WhatsAppAccount {
   api_version: string
   is_default_incoming: boolean
   is_default_outgoing: boolean
+  business_calling_enabled?: boolean
   auto_read_receipt: boolean
   status: string
   has_access_token: boolean
@@ -208,7 +209,7 @@ async function deleteAccount() {
   try {
     await api.delete(`/accounts/${account.value.id}`)
     toast.success(t('common.deletedSuccess', { resource: t('resources.Account') }))
-    router.push('/settings/accounts')
+    router.push('/app/settings/accounts')
   } catch (e) {
     toast.error(getErrorMessage(e, t('common.failedDelete', { resource: t('resources.account') })))
   }

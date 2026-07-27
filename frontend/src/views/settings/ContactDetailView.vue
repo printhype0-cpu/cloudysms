@@ -169,7 +169,7 @@ async function deleteContact() {
   try {
     await contactsService.delete(contact.value.id)
     toast.success(t('common.deletedSuccess', { resource: t('resources.Contact') }))
-    router.push('/settings/contacts')
+    router.push('/app/settings/contacts')
   } catch (e) {
     toast.error(getErrorMessage(e, t('common.failedDelete', { resource: t('resources.contact') })))
   }

@@ -303,7 +303,7 @@ function getHeaderIcon(type: string) {
           <RefreshCw v-else class="h-4 w-4 mr-2" />
           {{ $t('templates.syncFromMeta') }}
         </Button>
-        <RouterLink to="/templates/new">
+        <RouterLink to="/app/templates/new">
           <Button variant="outline" size="sm">
             <Plus class="h-4 w-4 mr-2" />
             {{ $t('templates.createTemplate') }}
@@ -419,7 +419,7 @@ function getHeaderIcon(type: string) {
                       <RefreshCw class="h-4 w-4 mr-2" />
                       {{ $t('templates.syncFromMeta') }}
                     </Button>
-                    <RouterLink to="/templates/new">
+                    <RouterLink to="/app/templates/new">
                       <Button variant="outline" size="sm">
                         <Plus class="h-4 w-4 mr-2" />
                         {{ $t('templates.createTemplate') }}

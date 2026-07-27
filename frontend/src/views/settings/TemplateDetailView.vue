@@ -583,7 +583,7 @@ async function deleteTemplate() {
   try {
     await api.delete(`/templates/${template.value.id}`)
     toast.success(t('templates.deleted', 'Template deleted'))
-    router.push('/templates')
+    router.push('/app/templates')
   } catch {
     toast.error(t('templates.deleteFailed', 'Failed to delete template'))
   }

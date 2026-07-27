@@ -108,7 +108,7 @@ async function confirmDelete() {
       :breadcrumbs="breadcrumbs"
     >
       <template #actions>
-        <RouterLink v-if="canWrite" to="/settings/accounts/new">
+        <RouterLink v-if="canWrite" to="/app/settings/accounts/new">
           <Button variant="outline" size="sm">
             <Plus class="h-4 w-4 mr-2" />
             {{ $t('accounts.addAccount') }}
@@ -149,7 +149,7 @@ async function confirmDelete() {
                 item-name="accounts"
               >
                 <template #empty-action>
-                  <RouterLink v-if="canWrite" to="/settings/accounts/new">
+                  <RouterLink v-if="canWrite" to="/app/settings/accounts/new">
                     <Button variant="outline" size="sm"><Plus class="h-4 w-4 mr-2" />{{ $t('accounts.addAccount') }}</Button>
                   </RouterLink>
                 </template>

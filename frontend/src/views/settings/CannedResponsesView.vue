@@ -71,7 +71,7 @@ watch(selectedCategory, () => {
   resetAndFetch()
 })
 
-function openCreate() { router.push('/settings/canned-responses/new') }
+function openCreate() { router.push('/app/settings/canned-responses/new') }
 function openEdit(response: CannedResponse) { router.push(`/settings/canned-responses/${response.id}`) }
 
 onMounted(() => fetchItems())

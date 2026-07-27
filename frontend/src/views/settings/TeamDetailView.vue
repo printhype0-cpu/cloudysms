@@ -169,7 +169,7 @@ async function deleteTeam() {
   try {
     await teamsStore.deleteTeam(team.value.id)
     toast.success(t('teams.deleted', 'Team deleted'))
-    router.push('/settings/teams')
+    router.push('/app/settings/teams')
   } catch {
     toast.error(t('teams.deleteFailed', 'Failed to delete team'))
   }

@@ -245,7 +245,7 @@ async function deleteResponse() {
     await cannedResponsesService.delete(response.value.id)
     toast.success(t('common.deletedSuccess', { resource: t('resources.CannedResponse') }))
     hasChanges.value = false
-    router.push('/settings/canned-responses')
+    router.push('/app/settings/canned-responses')
   } catch (e) {
     toast.error(getErrorMessage(e, t('common.failedDelete', { resource: t('resources.cannedResponse') })))
   }

@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useSeo } from '@/composables/useSeo'
+
+useSeo({
+  title: 'Settings',
+  description: 'Manage your CloudySMS workspace and preferences.'
+})
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'

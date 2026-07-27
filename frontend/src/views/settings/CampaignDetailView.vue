@@ -474,7 +474,7 @@ async function deleteCampaign() {
   try {
     await campaignsService.delete(campaign.value.id)
     toast.success(t('campaigns.deleted', 'Campaign deleted'))
-    router.push('/campaigns')
+    router.push('/app/campaigns')
   } catch {
     toast.error(t('campaigns.deleteFailed', 'Failed to delete campaign'))
   }

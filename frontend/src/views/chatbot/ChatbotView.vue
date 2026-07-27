@@ -222,7 +222,7 @@ const statCards = computed(() => [
 
         <!-- Quick Actions -->
         <div class="grid gap-4 md:grid-cols-3">
-          <RouterLink to="/chatbot/keywords" class="card-interactive rounded-xl border border-white/[0.08] bg-white/[0.02] h-full light:bg-white light:border-gray-200">
+          <RouterLink to="/app/chatbot/keywords" class="card-interactive rounded-xl border border-white/[0.08] bg-white/[0.02] h-full light:bg-white light:border-gray-200">
             <div class="p-6">
               <div class="flex items-center gap-3">
                 <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
@@ -241,7 +241,7 @@ const statCards = computed(() => [
             </div>
           </RouterLink>
 
-          <RouterLink to="/chatbot/flows" class="card-interactive rounded-xl border border-white/[0.08] bg-white/[0.02] h-full light:bg-white light:border-gray-200">
+          <RouterLink to="/app/chatbot/flows" class="card-interactive rounded-xl border border-white/[0.08] bg-white/[0.02] h-full light:bg-white light:border-gray-200">
             <div class="p-6">
               <div class="flex items-center gap-3">
                 <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-lg shadow-purple-500/20">
@@ -260,7 +260,7 @@ const statCards = computed(() => [
             </div>
           </RouterLink>
 
-          <RouterLink to="/chatbot/ai" class="card-interactive rounded-xl border border-white/[0.08] bg-white/[0.02] h-full light:bg-white light:border-gray-200">
+          <RouterLink to="/app/chatbot/ai" class="card-interactive rounded-xl border border-white/[0.08] bg-white/[0.02] h-full light:bg-white light:border-gray-200">
             <div class="p-6">
               <div class="flex items-center gap-3">
                 <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-lg shadow-orange-500/20">
@@ -288,7 +288,7 @@ const statCards = computed(() => [
                 <h3 class="text-lg font-semibold text-white light:text-gray-900">{{ $t('chatbot.currentConfiguration') }}</h3>
                 <p class="text-sm text-white/40 light:text-gray-500">{{ $t('chatbot.configOverview') }}</p>
               </div>
-              <RouterLink to="/settings/chatbot">
+              <RouterLink to="/app/settings/chatbot">
                 <Button variant="outline" size="sm">
                   <Settings class="h-4 w-4 mr-2" />
                   {{ $t('chatbot.editSettings') }}

@@ -17,6 +17,84 @@ const router = createRouter({
   history: createWebHistory(normalizedBasePath),
   routes: [
     {
+      path: '/',
+      name: 'landing',
+      component: () => import('@/views/LandingView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/features',
+      name: 'features',
+      component: () => import('@/views/marketing/FeaturesView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/pricing',
+      name: 'pricing',
+      component: () => import('@/views/marketing/PricingView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/integrations',
+      name: 'integrations',
+      component: () => import('@/views/marketing/IntegrationsView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/changelog',
+      name: 'changelog',
+      component: () => import('@/views/marketing/ChangelogView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/docs',
+      name: 'documentation',
+      component: () => import('@/views/marketing/DocumentationView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/api-reference',
+      name: 'api-reference',
+      component: () => import('@/views/marketing/APIReferenceView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: () => import('@/views/marketing/BlogView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/community',
+      name: 'community',
+      component: () => import('@/views/marketing/CommunityView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('@/views/marketing/AboutView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('@/views/marketing/ContactView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/privacy',
+      name: 'privacy',
+      component: () => import('@/views/marketing/PrivacyView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/terms',
+      name: 'terms',
+      component: () => import('@/views/marketing/TermsView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('@/views/auth/LoginView.vue'),
@@ -35,12 +113,12 @@ const router = createRouter({
       meta: { requiresAuth: false }
     },
     {
-      path: '/',
+      path: '/app',
       component: () => import('@/components/layout/AppLayout.vue'),
       meta: { requiresAuth: true },
       children: [
         {
-          path: '',
+          path: 'dashboard',
           name: 'dashboard',
           component: () => import('@/views/dashboard/DashboardView.vue'),
           meta: { permission: 'analytics' }
@@ -340,39 +418,39 @@ const router = createRouter({
 // Navigation items with permissions in priority order (matches AppLayout.vue)
 // Used to find the first accessible route for a user
 const navigationOrder = [
-  { path: '/', permission: 'analytics' },
-  { path: '/chat', permission: 'chat' },
-  { path: '/chatbot', permission: 'settings.chatbot', childPaths: [
-    { path: '/chatbot', permission: 'settings.chatbot' },
-    { path: '/chatbot/keywords', permission: 'chatbot.keywords' },
-    { path: '/chatbot/flows', permission: 'flows.chatbot' },
-    { path: '/chatbot/ai', permission: 'chatbot.ai' }
+  { path: '/app/dashboard', permission: 'analytics' },
+  { path: '/app/chat', permission: 'chat' },
+  { path: '/app/chatbot', permission: 'settings.chatbot', childPaths: [
+    { path: '/app/chatbot', permission: 'settings.chatbot' },
+    { path: '/app/chatbot/keywords', permission: 'chatbot.keywords' },
+    { path: '/app/chatbot/flows', permission: 'flows.chatbot' },
+    { path: '/app/chatbot/ai', permission: 'chatbot.ai' }
   ]},
-  { path: '/chatbot/transfers', permission: 'transfers' },
-  { path: '/analytics/agents', permission: 'analytics.agents' },
-  { path: '/analytics/meta-insights', permission: 'analytics' },
-  { path: '/templates', permission: 'templates' },
-  { path: '/flows', permission: 'flows.whatsapp' },
-  { path: '/campaigns', permission: 'campaigns' },
-  { path: '/calling/logs', permission: 'call_logs', childPaths: [
-    { path: '/calling/logs', permission: 'call_logs' },
-    { path: '/calling/ivr-flows', permission: 'ivr_flows' },
-    { path: '/calling/transfers', permission: 'call_transfers' }
+  { path: '/app/chatbot/transfers', permission: 'transfers' },
+  { path: '/app/analytics/agents', permission: 'analytics.agents' },
+  { path: '/app/analytics/meta-insights', permission: 'analytics' },
+  { path: '/app/templates', permission: 'templates' },
+  { path: '/app/flows', permission: 'flows.whatsapp' },
+  { path: '/app/campaigns', permission: 'campaigns' },
+  { path: '/app/calling/logs', permission: 'call_logs', childPaths: [
+    { path: '/app/calling/logs', permission: 'call_logs' },
+    { path: '/app/calling/ivr-flows', permission: 'ivr_flows' },
+    { path: '/app/calling/transfers', permission: 'call_transfers' }
   ]},
-  { path: '/settings', permission: 'settings.general', childPaths: [
-    { path: '/settings', permission: 'settings.general' },
-    { path: '/settings/chatbot', permission: 'settings.chatbot' },
-    { path: '/settings/accounts', permission: 'accounts' },
-    { path: '/settings/canned-responses', permission: 'canned_responses' },
-    { path: '/settings/contacts', permission: 'contacts' },
-    { path: '/settings/tags', permission: 'tags' },
-    { path: '/settings/teams', permission: 'teams' },
-    { path: '/settings/users', permission: 'users' },
-    { path: '/settings/roles', permission: 'roles' },
-    { path: '/settings/api-keys', permission: 'api_keys' },
-    { path: '/settings/webhooks', permission: 'webhooks' },
-    { path: '/settings/custom-actions', permission: 'custom_actions' },
-    { path: '/settings/sso', permission: 'settings.sso' }
+  { path: '/app/settings', permission: 'settings.general', childPaths: [
+    { path: '/app/settings', permission: 'settings.general' },
+    { path: '/app/settings/chatbot', permission: 'settings.chatbot' },
+    { path: '/app/settings/accounts', permission: 'accounts' },
+    { path: '/app/settings/canned-responses', permission: 'canned_responses' },
+    { path: '/app/settings/contacts', permission: 'contacts' },
+    { path: '/app/settings/tags', permission: 'tags' },
+    { path: '/app/settings/teams', permission: 'teams' },
+    { path: '/app/settings/users', permission: 'users' },
+    { path: '/app/settings/roles', permission: 'roles' },
+    { path: '/app/settings/api-keys', permission: 'api_keys' },
+    { path: '/app/settings/webhooks', permission: 'webhooks' },
+    { path: '/app/settings/custom-actions', permission: 'custom_actions' },
+    { path: '/app/settings/sso', permission: 'settings.sso' }
   ]}
 ]
 
@@ -393,7 +471,7 @@ function getFirstAccessibleRoute(authStore: ReturnType<typeof useAuthStore>): st
     }
   }
   // Fallback to profile (always accessible)
-  return '/profile'
+  return '/app/profile'
 }
 
 // Navigation guard

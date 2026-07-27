@@ -11,19 +11,19 @@ import (
 	"time"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/shridarpatil/whatomate/internal/assignment"
-	"github.com/shridarpatil/whatomate/internal/calling"
-	"github.com/shridarpatil/whatomate/internal/config"
-	"github.com/shridarpatil/whatomate/internal/database"
-	"github.com/shridarpatil/whatomate/internal/frontend"
-	"github.com/shridarpatil/whatomate/internal/handlers"
-	"github.com/shridarpatil/whatomate/internal/middleware"
-	"github.com/shridarpatil/whatomate/internal/queue"
-	"github.com/shridarpatil/whatomate/internal/storage"
-	"github.com/shridarpatil/whatomate/internal/tts"
-	"github.com/shridarpatil/whatomate/internal/websocket"
-	"github.com/shridarpatil/whatomate/internal/worker"
-	"github.com/shridarpatil/whatomate/pkg/whatsapp"
+	"github.com/shridarpatil/cloudysms/internal/assignment"
+	"github.com/shridarpatil/cloudysms/internal/calling"
+	"github.com/shridarpatil/cloudysms/internal/config"
+	"github.com/shridarpatil/cloudysms/internal/database"
+	"github.com/shridarpatil/cloudysms/internal/frontend"
+	"github.com/shridarpatil/cloudysms/internal/handlers"
+	"github.com/shridarpatil/cloudysms/internal/middleware"
+	"github.com/shridarpatil/cloudysms/internal/queue"
+	"github.com/shridarpatil/cloudysms/internal/storage"
+	"github.com/shridarpatil/cloudysms/internal/tts"
+	"github.com/shridarpatil/cloudysms/internal/websocket"
+	"github.com/shridarpatil/cloudysms/internal/worker"
+	"github.com/shridarpatil/cloudysms/pkg/whatsapp"
 	"github.com/valyala/fasthttp"
 	"github.com/zerodha/fastglue"
 	"github.com/zerodha/logf"
@@ -46,7 +46,7 @@ func main() {
 	case "worker":
 		runWorker(os.Args[2:])
 	case "version":
-		fmt.Printf("Whatomate %s (built %s)\n", Version, BuildTime)
+		fmt.Printf("CloudySMS %s (built %s)\n", Version, BuildTime)
 	case "help", "-h", "--help":
 		printUsage()
 	default:
@@ -57,10 +57,10 @@ func main() {
 }
 
 func printUsage() {
-	fmt.Println(`Whatomate - WhatsApp Business API Platform
+	fmt.Println(`CloudySMS - WhatsApp Business API Platform
 
 Usage:
-  whatomate <command> [options]
+  cloudysms <command> [options]
 
 Commands:
   server    Start the API server (with optional embedded workers)
@@ -78,16 +78,16 @@ Worker Options:
   -workers int      Number of workers to run (default 1)
 
 Examples:
-  whatomate server                     # API + 1 embedded worker
-  whatomate server -workers 0          # API only (no workers)
-  whatomate server -workers 4          # API + 4 embedded workers
-  whatomate server -migrate            # Run migrations and start server
-  whatomate worker -workers 4          # 4 workers only (no API)
+  cloudysms server                     # API + 1 embedded worker
+  cloudysms server -workers 0          # API only (no workers)
+  cloudysms server -workers 4          # API + 4 embedded workers
+  cloudysms server -migrate            # Run migrations and start server
+  cloudysms worker -workers 4          # 4 workers only (no API)
 
 Deployment Scenarios:
-  All-in-one:    whatomate server
-  Separate:      whatomate server -workers 0  (on API server)
-                 whatomate worker -workers 4  (on worker server)`)
+  All-in-one:    cloudysms server
+  Separate:      cloudysms server -workers 0  (on API server)
+                 cloudysms worker -workers 4  (on worker server)`)
 }
 
 // ============================================================================
@@ -107,10 +107,10 @@ func runServer(args []string) {
 		Level:           logf.DebugLevel,
 		EnableCaller:    true,
 		TimestampFormat: "2006-01-02 15:04:05",
-		DefaultFields:   []any{"app", "whatomate"},
+		DefaultFields:   []any{"app", "cloudysms"},
 	})
 
-	lo.Info("Starting Whatomate server...", "version", Version)
+	lo.Info("Starting CloudySMS server...", "version", Version)
 
 	// Load configuration
 	cfg, err := config.Load(*configPath)
@@ -141,7 +141,7 @@ func runServer(args []string) {
 		lo = logf.New(logf.Opts{
 			Level:           logf.InfoLevel,
 			TimestampFormat: "2006-01-02 15:04:05",
-			DefaultFields:   []any{"app", "whatomate"},
+			DefaultFields:   []any{"app", "cloudysms"},
 		})
 	}
 
@@ -264,7 +264,7 @@ func runServer(args []string) {
 		ReadTimeout:        time.Duration(cfg.Server.ReadTimeout) * time.Second,
 		WriteTimeout:       time.Duration(cfg.Server.WriteTimeout) * time.Second,
 		MaxRequestBodySize: 15 * 1024 * 1024,
-		Name:               "Whatomate",
+		Name:               "CloudySMS",
 	}
 
 	// Start server in goroutine
@@ -361,10 +361,10 @@ func runWorker(args []string) {
 		Level:           logf.DebugLevel,
 		EnableCaller:    true,
 		TimestampFormat: "2006-01-02 15:04:05",
-		DefaultFields:   []any{"app", "whatomate-worker"},
+		DefaultFields:   []any{"app", "cloudysms-worker"},
 	})
 
-	lo.Info("Starting Whatomate worker...", "version", Version)
+	lo.Info("Starting CloudySMS worker...", "version", Version)
 
 	// Load configuration
 	cfg, err := config.Load(*configPath)
@@ -377,7 +377,7 @@ func runWorker(args []string) {
 		lo = logf.New(logf.Opts{
 			Level:           logf.InfoLevel,
 			TimestampFormat: "2006-01-02 15:04:05",
-			DefaultFields:   []any{"app", "whatomate-worker"},
+			DefaultFields:   []any{"app", "cloudysms-worker"},
 		})
 	}
 

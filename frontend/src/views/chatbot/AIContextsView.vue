@@ -148,7 +148,7 @@ async function toggleContext(context: AIContext) {
       :breadcrumbs="[{ label: $t('aiContexts.backToChatbot'), href: '/chatbot' }, { label: $t('nav.aiContexts') }]"
     >
       <template #actions>
-        <RouterLink to="/chatbot/ai/new">
+        <RouterLink to="/app/chatbot/ai/new">
           <Button variant="outline" size="sm">
             <Plus class="h-4 w-4 mr-2" />
             {{ $t('aiContexts.addContext') }}
@@ -235,7 +235,7 @@ async function toggleContext(context: AIContext) {
                   </div>
                 </template>
                 <template #empty-action>
-                  <RouterLink v-if="!searchQuery" to="/chatbot/ai/new">
+                  <RouterLink v-if="!searchQuery" to="/app/chatbot/ai/new">
                     <Button variant="outline" size="sm">
                       <Plus class="h-4 w-4 mr-2" />
                       {{ $t('aiContexts.addContext') }}

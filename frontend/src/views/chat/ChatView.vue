@@ -2,6 +2,12 @@
 import { ref, watch, onMounted, onUnmounted, nextTick, computed, defineAsyncComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useSeo } from '@/composables/useSeo'
+
+useSeo({
+  title: 'Team Inbox',
+  description: 'Manage customer conversations and collaborate with your team.'
+})
 import { useContactsStore, type Contact, type Message } from '@/stores/contacts'
 import { useAuthStore } from '@/stores/auth'
 import { useUsersStore } from '@/stores/users'
@@ -1244,7 +1250,7 @@ async function resumeChatbot() {
         // Contact no longer visible to this user, navigate away
         contactsStore.setCurrentContact(null)
         contactsStore.clearMessages()
-        router.push('/chat')
+        router.push('/app/chat')
       }
     }
   } catch (error: any) {

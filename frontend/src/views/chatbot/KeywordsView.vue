@@ -129,7 +129,7 @@ const emptyDescription = computed(() => {
       :breadcrumbs="[{ label: $t('keywords.backToChatbot'), href: '/chatbot' }, { label: $t('nav.keywords') }]"
     >
       <template #actions>
-        <RouterLink to="/chatbot/keywords/new">
+        <RouterLink to="/app/chatbot/keywords/new">
           <Button variant="outline" size="sm">
             <Plus class="h-4 w-4 mr-2" />
             {{ $t('keywords.addRule') }}
@@ -215,7 +215,7 @@ const emptyDescription = computed(() => {
                   </div>
                 </template>
                 <template #empty-action>
-                  <RouterLink v-if="!searchQuery" to="/chatbot/keywords/new">
+                  <RouterLink v-if="!searchQuery" to="/app/chatbot/keywords/new">
                     <Button variant="outline" size="sm">
                       <Plus class="h-4 w-4 mr-2" />
                       {{ $t('keywords.addRule') }}

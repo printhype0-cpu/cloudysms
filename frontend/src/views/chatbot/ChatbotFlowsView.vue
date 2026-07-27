@@ -91,7 +91,7 @@ function handlePageChange(page: number) {
 }
 
 function createFlow() {
-  router.push('/chatbot/flows/new')
+  router.push('/app/chatbot/flows/new')
 }
 
 function editFlow(flow: ChatbotFlow) {

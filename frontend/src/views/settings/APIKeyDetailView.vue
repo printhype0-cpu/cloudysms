@@ -130,7 +130,7 @@ async function deleteApiKey() {
   try {
     await apiKeysService.delete(apiKey.value.id)
     toast.success(t('common.deletedSuccess', { resource: t('resources.apiKey', 'API Key') }))
-    router.push('/settings/api-keys')
+    router.push('/app/settings/api-keys')
   } catch (e) {
     toast.error(getErrorMessage(e, t('common.failedDelete', { resource: t('resources.apiKey', 'API key') })))
   }

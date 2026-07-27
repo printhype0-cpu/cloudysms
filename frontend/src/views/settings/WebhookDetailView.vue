@@ -201,7 +201,7 @@ async function deleteWebhook() {
   try {
     await webhooksService.delete(webhook.value.id)
     toast.success(t('common.deletedSuccess', { resource: t('resources.Webhook') }))
-    router.push('/settings/webhooks')
+    router.push('/app/settings/webhooks')
   } catch (e) {
     toast.error(getErrorMessage(e, t('common.failedDelete', { resource: t('resources.webhook') })))
   }

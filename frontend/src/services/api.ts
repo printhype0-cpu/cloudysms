@@ -252,11 +252,13 @@ export const messagesService = {
       whatsapp_account?: string
       // Interactive button / cta_url payload. Mirrors backend InteractiveContent.
       interactive?: {
-        type: 'button' | 'cta_url' | 'list'
+        type: 'button' | 'cta_url' | 'list' | 'voice_call'
         body: string
         buttons?: Array<{ id: string; title: string }>
         button_text?: string
         url?: string
+        display_text?: string
+        ttl_minutes?: number
       }
     },
   ) => api.post(`/contacts/${contactId}/messages`, data),
@@ -397,9 +399,10 @@ export const chatbotService = {
 export interface CannedResponseButton {
   id: string
   title: string
-  type?: 'reply' | 'url' | 'phone'
+  type?: 'reply' | 'url' | 'phone' | 'voice_call'
   url?: string
   phone_number?: string
+  ttl_minutes?: number
 }
 
 export interface CannedResponse {

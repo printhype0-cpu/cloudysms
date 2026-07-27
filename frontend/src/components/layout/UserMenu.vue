@@ -216,7 +216,7 @@ const handleLogout = () => {
           />
         </div>
         <Separator class="my-1 bg-white/[0.08] light:bg-gray-200" />
-        <RouterLink to="/profile">
+        <RouterLink to="/app/profile">
           <Button
             variant="ghost"
             class="w-full justify-start px-2 py-1 h-auto text-[13px] font-normal text-white/70 hover:text-white hover:bg-white/[0.04] light:text-gray-600 light:hover:text-gray-900 light:hover:bg-gray-100"

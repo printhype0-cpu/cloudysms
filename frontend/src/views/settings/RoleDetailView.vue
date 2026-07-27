@@ -139,7 +139,7 @@ async function deleteRole() {
   try {
     await rolesStore.deleteRole(role.value.id)
     toast.success(t('common.deletedSuccess', { resource: t('resources.Role') }))
-    router.push('/settings/roles')
+    router.push('/app/settings/roles')
   } catch (e) {
     toast.error(getErrorMessage(e, t('common.failedDelete', { resource: t('resources.role') })))
   }

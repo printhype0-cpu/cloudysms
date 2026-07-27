@@ -386,7 +386,7 @@ class WebSocketService {
         duration: 5000,
         action: {
           label: 'View',
-          onClick: () => router.push('/chatbot/transfers')
+          onClick: () => router.push('/app/chatbot/transfers')
         }
       })
     }
@@ -428,7 +428,7 @@ class WebSocketService {
         duration: 5000,
         action: {
           label: 'View',
-          onClick: () => router.push('/chatbot/transfers')
+          onClick: () => router.push('/app/chatbot/transfers')
         }
       })
     }
@@ -458,7 +458,7 @@ class WebSocketService {
         duration: 10000,
         action: {
           label: 'View',
-          onClick: () => router.push('/chatbot/transfers')
+          onClick: () => router.push('/app/chatbot/transfers')
         }
       })
     }
@@ -475,7 +475,7 @@ class WebSocketService {
       duration: 5000,
       action: {
         label: 'View',
-        onClick: () => router.push('/calling/logs')
+        onClick: () => router.push('/app/calling/logs')
       }
     })
   }
@@ -492,7 +492,7 @@ class WebSocketService {
       action: {
         label: 'Accept',
         onClick: () => {
-          router.push('/calling/transfers')
+          router.push('/app/calling/transfers')
         }
       }
     })

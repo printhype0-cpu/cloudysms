@@ -98,41 +98,96 @@ const scrollToBottom = async () => {
   }
 }
 
+const step = ref<'initial' | 'awaiting_email' | 'done'>('initial')
+const userEmail = ref('')
+const userMessage = ref('')
+
 const sendMessage = async () => {
   if (!inputValue.value.trim()) return
 
-  // Add user message
-  messages.value.push({
-    role: 'user',
-    content: inputValue.value
-  })
-  
-  const userMessage = inputValue.value
+  const messageText = inputValue.value.trim()
   inputValue.value = ''
+
+  // Add user message to UI
+  messages.value.push({ role: 'user', content: messageText })
   scrollToBottom()
 
-  // Simulate bot typing
   isTyping.value = true
   scrollToBottom()
 
-  setTimeout(() => {
-    isTyping.value = false
+  if (step.value === 'initial') {
+    userMessage.value = messageText
+    setTimeout(() => {
+      isTyping.value = false
+      messages.value.push({
+        role: 'bot',
+        content: "Thanks! What's the best email to reach you at? We'll get back to you shortly."
+      })
+      step.value = 'awaiting_email'
+      scrollToBottom()
+    }, 1000)
+    return
+  }
+
+  if (step.value === 'awaiting_email') {
+    userEmail.value = messageText
     
-    // Simple mock responses
-    let response = "Thanks for reaching out! Our team is currently assisting other customers. Please leave your email or WhatsApp number, and we'll get back to you shortly."
-    
-    if (userMessage.toLowerCase().includes('pricing') || userMessage.toLowerCase().includes('cost')) {
-      response = "Our plans start at $0/mo for the Starter tier, and go up to $49/mo for the Pro tier!"
-    } else if (userMessage.toLowerCase().includes('feature') || userMessage.toLowerCase().includes('what can you do')) {
-      response = "We offer a Visual Flow Builder, Team Inbox, Broadcast Campaigns, and Rich Analytics!"
+    // Validate email roughly
+    if (!userEmail.value.includes('@') || !userEmail.value.includes('.')) {
+      setTimeout(() => {
+        isTyping.value = false
+        messages.value.push({
+          role: 'bot',
+          content: "That doesn't look like a valid email. Could you try again?"
+        })
+        scrollToBottom()
+      }, 500)
+      return
     }
-    
-    messages.value.push({
-      role: 'bot',
-      content: response
-    })
-    scrollToBottom()
-  }, 1200)
+
+    step.value = 'done'
+
+    try {
+      // Send to real backend
+      await fetch('/api/webhooks/website-lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: userEmail.value,
+          message: userMessage.value
+        })
+      })
+
+      setTimeout(() => {
+        isTyping.value = false
+        messages.value.push({
+          role: 'bot',
+          content: "Got it! We've saved your information and will be in touch soon. Have a great day!"
+        })
+        scrollToBottom()
+      }, 1000)
+    } catch (e) {
+      setTimeout(() => {
+        isTyping.value = false
+        messages.value.push({
+          role: 'bot',
+          content: "Oops! Something went wrong on our end. Please try again later."
+        })
+        scrollToBottom()
+      }, 1000)
+    }
+  } else if (step.value === 'done') {
+      setTimeout(() => {
+        isTyping.value = false
+        messages.value.push({
+          role: 'bot',
+          content: "We've already received your message! We'll reply via email shortly."
+        })
+        scrollToBottom()
+      }, 1000)
+  }
 }
 </script>
 

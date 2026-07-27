@@ -510,6 +510,7 @@ func setupRoutes(g *fastglue.Fastglue, app *handlers.App, lo logf.Logger, basePa
 	g.GET("/api/webhook", app.WebhookVerify)
 	g.POST("/api/webhook", app.WebhookHandler)
 	g.POST("/api/webhooks/stripe", app.HandleStripeWebhook)
+	g.POST("/api/webhooks/website-lead", app.HandleWebsiteLead)
 	g.POST("/api/billing/checkout", app.HandleCreateCheckoutSession)
 
 	// WebSocket route (auth via message-based flow after upgrade)
@@ -527,7 +528,7 @@ func setupRoutes(g *fastglue.Fastglue, app *handlers.App, lo logf.Logger, basePa
 		if path == "/health" || path == "/ready" ||
 			path == "/api/auth/login" || path == "/api/auth/register" || path == "/api/auth/register-self" || path == "/api/auth/refresh" ||
 			path == "/api/auth/forgot-password" || path == "/api/auth/reset-password" ||
-			path == "/api/auth/logout" || path == "/api/webhook" || path == "/ws" {
+			path == "/api/auth/logout" || path == "/api/webhook" || path == "/api/webhooks/website-lead" || path == "/ws" {
 			return r
 		}
 		// Skip auth for SSO routes (they handle their own auth via state tokens)

@@ -119,7 +119,7 @@ const getStarted = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 1.5rem;
+  padding: 1.25rem 4rem;
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--glass-border);
   background: rgba(255, 255, 255, 0.8);
@@ -223,12 +223,12 @@ const getStarted = () => {
 .footer {
   border-top: 1px solid var(--glass-border);
   background: var(--bg-color-alt);
-  padding: 4rem 1.5rem 2rem;
+  padding: 4rem 4rem 2rem;
   margin-top: auto;
 }
 
 .footer-content {
-  max-width: none;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;

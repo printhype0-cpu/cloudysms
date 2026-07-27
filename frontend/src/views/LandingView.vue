@@ -421,17 +421,34 @@ const getStarted = () => {
   position: relative;
   z-index: 10;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 6rem 4rem;
+  text-align: center;
+  padding: 8rem 2rem 4rem;
   gap: 4rem;
-  max-width: none;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100%;
+  background: radial-gradient(circle at top center, rgba(16, 185, 129, 0.1) 0%, rgba(14, 165, 233, 0.05) 30%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
 .hero-content {
-  flex: 1;
-  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  width: 100%;
 }
 
 .badge {
@@ -458,7 +475,7 @@ const getStarted = () => {
 }
 
 .hero-title {
-  font-size: 4.5rem;
+  font-size: 5rem;
   line-height: 1.1;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -473,23 +490,25 @@ const getStarted = () => {
 }
 
 .hero-subtitle {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   line-height: 1.6;
   color: var(--text-muted);
-  margin-bottom: 2.5rem;
-  max-width: 550px;
+  margin: 0 auto 2.5rem;
+  max-width: 650px;
 }
 
 .hero-actions {
   display: flex;
+  justify-content: center;
   gap: 1rem;
 }
 
 /* Hero Visual (Glassmorphism Mockup) */
 .hero-visual {
-  flex: 1;
-  max-width: 800px;
-  perspective: 1000px;
+  width: 100%;
+  max-width: 1000px;
+  perspective: 1200px;
+  margin: 0 auto;
 }
 
 .glass-panel {
@@ -501,18 +520,19 @@ const getStarted = () => {
 }
 
 .mockup-panel {
-  transform: rotateY(-5deg) rotateX(5deg);
-  transition: transform 0.5s ease;
+  transform: rotateX(8deg) scale(0.95);
+  transform-origin: bottom center;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   animation: float-mockup 6s infinite ease-in-out;
 }
 
 .mockup-panel:hover {
-  transform: rotateY(0deg) rotateX(0deg);
+  transform: translateY(-10px) rotateX(0deg) scale(1);
 }
 
 @keyframes float-mockup {
-  0%, 100% { transform: translateY(0) rotateY(-5deg) rotateX(5deg); }
-  50% { transform: translateY(-15px) rotateY(-2deg) rotateX(2deg); }
+  0%, 100% { transform: translateY(0) rotateX(8deg) scale(0.95); }
+  50% { transform: translateY(-20px) rotateX(4deg) scale(0.97); }
 }
 
 .window-header {

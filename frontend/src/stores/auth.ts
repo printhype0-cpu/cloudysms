@@ -128,6 +128,16 @@ export const useAuthStore = defineStore('auth', () => {
     setAuth({ user: response.data.data.user })
   }
 
+  async function registerSelf(data: {
+    email: string
+    password: string
+    full_name: string
+    organization_name: string
+  }): Promise<void> {
+    const response = await api.post('/auth/register-self', data)
+    setAuth({ user: response.data.data.user })
+  }
+
   async function switchOrg(organizationId: string): Promise<void> {
     const response = await api.post('/auth/switch-org', { organization_id: organizationId })
     setAuth({ user: response.data.data.user })
@@ -197,6 +207,7 @@ export const useAuthStore = defineStore('auth', () => {
     refreshUserData,
     login,
     register,
+    registerSelf,
     switchOrg,
     logout,
     setAvailability,

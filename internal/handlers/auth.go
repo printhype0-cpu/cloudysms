@@ -562,3 +562,147 @@ func (a *App) GetWSToken(r *fastglue.Request) error {
 
 	return r.SendEnvelope(map[string]string{"token": signed})
 }
+
+// RegisterSelfRequest represents the request body for self-service signup
+type RegisterSelfRequest struct {
+	Email            string `json:"email"`
+	Password         string `json:"password"`
+	FullName         string `json:"full_name"`
+	OrganizationName string `json:"organization_name"`
+}
+
+// RegisterSelf handles self-service registration where a new organization is created
+func (a *App) RegisterSelf(r *fastglue.Request) error {
+	var req RegisterSelfRequest
+	if err := a.decodeRequest(r, &req); err != nil {
+		return nil
+	}
+
+	if req.Email == "" || req.Password == "" || req.FullName == "" || req.OrganizationName == "" {
+		return r.SendErrorEnvelope(fasthttp.StatusBadRequest, "All fields are required", nil, "")
+	}
+
+	// Check if email already exists
+	var existingUser models.User
+	if err := a.DB.Where("email = ?", req.Email).First(&existingUser).Error; err == nil {
+		return r.SendErrorEnvelope(fasthttp.StatusConflict, "An account with this email already exists.", nil, "")
+	}
+
+	// Start transaction
+	tx := a.DB.Begin()
+	if tx.Error != nil {
+		a.Log.Error("Failed to begin transaction", "error", tx.Error)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to create account", nil, "")
+	}
+
+	// 1. Create Organization
+	org := models.Organization{
+		Name:     req.OrganizationName,
+		Slug:     generateSlug(req.OrganizationName),
+		Settings: models.JSONB{},
+	}
+	if err := tx.Create(&org).Error; err != nil {
+		tx.Rollback()
+		a.Log.Error("Failed to create organization", "error", err)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to create organization", nil, "")
+	}
+
+	// 2. Seed system roles
+	if err := database.SeedSystemRolesForOrg(tx, org.ID); err != nil {
+		tx.Rollback()
+		a.Log.Error("Failed to seed system roles", "error", err, "org_id", org.ID)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to initialize organization", nil, "")
+	}
+
+	// 3. Create default chatbot settings
+	chatbotSettings := models.ChatbotSettings{
+		OrganizationID:     org.ID,
+		IsEnabled:          false,
+		SessionTimeoutMins: 30,
+	}
+	if err := tx.Create(&chatbotSettings).Error; err != nil {
+		tx.Rollback()
+		a.Log.Error("Failed to create chatbot settings", "error", err, "org_id", org.ID)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to initialize organization", nil, "")
+	}
+
+	// 4. Get admin role
+	var adminRole models.CustomRole
+	if err := tx.Where("organization_id = ? AND name = ? AND is_system = ?", org.ID, "admin", true).First(&adminRole).Error; err != nil {
+		tx.Rollback()
+		a.Log.Error("Failed to find admin role", "error", err, "org_id", org.ID)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to initialize organization", nil, "")
+	}
+
+	// 5. Hash password and create User
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+	if err != nil {
+		tx.Rollback()
+		a.Log.Error("Failed to hash password", "error", err)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to create account", nil, "")
+	}
+
+	user := models.User{
+		Email:          req.Email,
+		PasswordHash:   string(hashedPassword),
+		FullName:       req.FullName,
+		OrganizationID: org.ID,
+		RoleID:         &adminRole.ID,
+		IsActive:       true,
+		IsAvailable:    true,
+		Settings:       models.JSONB{},
+	}
+
+	if err := tx.Create(&user).Error; err != nil {
+		tx.Rollback()
+		a.Log.Error("Failed to create user", "error", err)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to create account", nil, "")
+	}
+
+	// 6. Link User to Organization
+	userOrg := models.UserOrganization{
+		UserID:         user.ID,
+		OrganizationID: org.ID,
+		RoleID:         &adminRole.ID,
+		IsDefault:      true,
+	}
+	if err := tx.Create(&userOrg).Error; err != nil {
+		tx.Rollback()
+		a.Log.Error("Failed to link user to organization", "error", err)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to create account", nil, "")
+	}
+
+	// 7. Seed widgets
+	if err := database.SeedDefaultWidgetsForOrg(tx, org.ID, user.ID); err != nil {
+		tx.Rollback()
+		a.Log.Error("Failed to seed widgets", "error", err, "org_id", org.ID)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to initialize organization", nil, "")
+	}
+
+	if err := tx.Commit().Error; err != nil {
+		a.Log.Error("Failed to commit transaction", "error", err)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to complete registration", nil, "")
+	}
+
+	// Complete registration, attach Role for the token
+	user.Role = &adminRole
+	
+	// Issue tokens
+	accessToken, err := a.generateAccessToken(&user)
+	if err != nil {
+		a.Log.Error("Failed to generate access token", "error", err)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to generate token", nil, "")
+	}
+	refreshToken, err := a.generateRefreshToken(&user)
+	if err != nil {
+		a.Log.Error("Failed to generate refresh token", "error", err)
+		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Failed to generate token", nil, "")
+	}
+
+	a.setAuthCookies(r, accessToken, refreshToken)
+
+	return r.SendEnvelope(CookieAuthResponse{
+		ExpiresIn: a.Config.JWT.AccessExpiryMins * 60,
+		User:      user,
+	})
+}

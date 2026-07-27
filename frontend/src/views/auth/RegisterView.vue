@@ -4,7 +4,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 import { toast } from 'vue-sonner'
-import { MessageSquare, Loader2, Mail, Lock, User } from 'lucide-vue-next'
+import { MessageSquare, Loader2, Mail, Lock, User, Building } from 'lucide-vue-next'
 import { useSeo } from '@/composables/useSeo'
 
 const { t } = useI18n()
@@ -21,13 +21,14 @@ const fullName = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
+const organizationName = ref('')
 const isLoading = ref(false)
 
 const organizationId = computed(() => (route.query.org as string) || '')
 
 const handleRegister = async () => {
-  if (!organizationId.value) {
-    toast.error(t('auth.invitationRequired'))
+  if (!organizationId.value && !organizationName.value) {
+    toast.error(t('auth.fillAllFields'))
     return
   }
 
@@ -49,12 +50,21 @@ const handleRegister = async () => {
   isLoading.value = true
 
   try {
-    await authStore.register({
-      full_name: fullName.value,
-      email: email.value,
-      password: password.value,
-      organization_id: organizationId.value
-    })
+    if (organizationId.value) {
+      await authStore.register({
+        full_name: fullName.value,
+        email: email.value,
+        password: password.value,
+        organization_id: organizationId.value
+      })
+    } else {
+      await authStore.registerSelf({
+        full_name: fullName.value,
+        email: email.value,
+        password: password.value,
+        organization_name: organizationName.value
+      })
+    }
     toast.success(t('auth.registrationSuccess'))
     router.push('/app/dashboard')
   } catch (error: any) {
@@ -77,18 +87,8 @@ const handleRegister = async () => {
         <p class="auth-subtitle">{{ $t('auth.createAccountDesc') }}</p>
       </div>
 
-      <!-- No org ID in URL — show invitation required message -->
-      <template v-if="!organizationId">
-        <div class="invitation-required">
-          <p class="required-text">{{ $t('auth.invitationRequired') }}</p>
-          <RouterLink to="/login" class="btn btn-outline btn-block mt-4">
-            {{ $t('auth.signIn') }}
-          </RouterLink>
-        </div>
-      </template>
-
-      <!-- Has org ID — show registration form -->
-      <form v-else @submit.prevent="handleRegister" class="auth-form">
+      <!-- Always show registration form -->
+      <form @submit.prevent="handleRegister" class="auth-form">
         <div class="form-group">
           <label for="fullName" class="form-label">{{ $t('auth.fullName') }}</label>
           <div class="input-wrapper">
@@ -101,6 +101,22 @@ const handleRegister = async () => {
               :placeholder="$t('auth.fullNamePlaceholder')"
               :disabled="isLoading"
               autocomplete="name"
+            />
+          </div>
+        </div>
+
+        <div class="form-group" v-if="!organizationId">
+          <label for="organizationName" class="form-label">Company Name</label>
+          <div class="input-wrapper">
+            <Building class="input-icon" />
+            <input
+              id="organizationName"
+              v-model="organizationName"
+              type="text"
+              class="form-input"
+              placeholder="Your Company or Organization Name"
+              :disabled="isLoading"
+              autocomplete="organization"
             />
           </div>
         </div>
@@ -159,7 +175,7 @@ const handleRegister = async () => {
         </button>
       </form>
 
-      <div class="auth-footer" v-if="organizationId">
+      <div class="auth-footer">
         <p class="footer-text">
           {{ $t('auth.alreadyHaveAccount') }}
           <RouterLink to="/login" class="footer-link">{{ $t('auth.signIn') }}</RouterLink>

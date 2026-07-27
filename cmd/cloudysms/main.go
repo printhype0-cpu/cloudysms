@@ -473,12 +473,16 @@ func setupRoutes(g *fastglue.Fastglue, app *handlers.App, lo logf.Logger, basePa
 		g.POST("/api/auth/register", withRateLimit(app.Register, middleware.RateLimitOpts{
 			Redis: rdb, Log: lo, Max: cfg.RateLimit.RegisterMaxAttempts, Window: window, KeyPrefix: "register", TrustProxy: cfg.RateLimit.TrustProxy,
 		}))
+		g.POST("/api/auth/register-self", withRateLimit(app.RegisterSelf, middleware.RateLimitOpts{
+			Redis: rdb, Log: lo, Max: cfg.RateLimit.RegisterMaxAttempts, Window: window, KeyPrefix: "register_self", TrustProxy: cfg.RateLimit.TrustProxy,
+		}))
 		g.POST("/api/auth/refresh", withRateLimit(app.RefreshToken, middleware.RateLimitOpts{
 			Redis: rdb, Log: lo, Max: cfg.RateLimit.RefreshMaxAttempts, Window: window, KeyPrefix: "refresh", TrustProxy: cfg.RateLimit.TrustProxy,
 		}))
 	} else {
 		g.POST("/api/auth/login", app.Login)
 		g.POST("/api/auth/register", app.Register)
+		g.POST("/api/auth/register-self", app.RegisterSelf)
 		g.POST("/api/auth/refresh", app.RefreshToken)
 	}
 	g.POST("/api/auth/logout", app.Logout)
@@ -519,7 +523,7 @@ func setupRoutes(g *fastglue.Fastglue, app *handlers.App, lo logf.Logger, basePa
 		path := string(r.RequestCtx.Path())
 		// Skip auth for public routes
 		if path == "/health" || path == "/ready" ||
-			path == "/api/auth/login" || path == "/api/auth/register" || path == "/api/auth/refresh" ||
+			path == "/api/auth/login" || path == "/api/auth/register" || path == "/api/auth/register-self" || path == "/api/auth/refresh" ||
 			path == "/api/auth/logout" || path == "/api/webhook" || path == "/ws" {
 			return r
 		}

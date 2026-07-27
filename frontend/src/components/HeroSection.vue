@@ -9,8 +9,8 @@
 
     <!-- Main Heading -->
     <h1 class="text-5xl md:text-6xl lg:text-[5.5rem] leading-tight font-extrabold tracking-tight mb-6">
-      <span class="text-[#00d26a] block mb-2">5X Your Revenue</span>
-      <span class="text-slate-900 dark:text-white">with the Power of WhatsApp</span>
+      <span class="text-[#00d26a] block mb-2">Unlock Explosive Growth.</span>
+      <span class="text-slate-900 dark:text-white">Turn WhatsApp into Your #1 Sales Channel</span>
     </h1>
 
     <!-- Subheading -->

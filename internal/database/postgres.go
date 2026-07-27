@@ -61,6 +61,7 @@ func GetMigrationModels() []MigrationModel {
 		{"CustomRole", &models.CustomRole{}},
 		{"User", &models.User{}},
 		{"UserOrganization", &models.UserOrganization{}},
+		{"PasswordResetToken", &models.PasswordResetToken{}},
 		{"Team", &models.Team{}},
 		{"TeamMember", &models.TeamMember{}},
 		{"APIKey", &models.APIKey{}},

@@ -25,6 +25,15 @@ type Config struct {
 	Calling      CallingConfig      `koanf:"calling"`
 	TTS          TTSConfig          `koanf:"tts"`
 	Stripe       StripeConfig       `koanf:"stripe"`
+	SMTP         SMTPConfig         `koanf:"smtp"`
+}
+
+type SMTPConfig struct {
+	Host      string `koanf:"host"`
+	Port      int    `koanf:"port"`
+	Username  string `koanf:"username"`
+	Password  string `koanf:"password"`
+	FromEmail string `koanf:"from_email"`
 }
 
 type StripeConfig struct {

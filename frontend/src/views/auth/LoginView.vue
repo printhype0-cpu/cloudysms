@@ -124,6 +124,11 @@ const initiateSSO = (provider: string) => {
               autocomplete="current-password"
             />
           </div>
+          <div class="flex justify-end mt-1">
+            <RouterLink to="/forgot-password" class="text-sm text-gray-400 hover:text-[var(--primary-color)] transition-colors">
+              Forgot Password?
+            </RouterLink>
+          </div>
         </div>
         
         <button type="submit" class="btn btn-primary btn-block pulse-hover" :disabled="isLoading">

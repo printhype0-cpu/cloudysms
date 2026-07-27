@@ -517,6 +517,17 @@ type WidgetFilter struct {
 	Value    string `json:"value"`
 }
 
+// PasswordResetToken represents a token for resetting a user's password
+type PasswordResetToken struct {
+	BaseModel
+	UserID    uuid.UUID `gorm:"type:uuid;index;not null" json:"user_id"`
+	Token     string    `gorm:"size:255;uniqueIndex;not null" json:"token"`
+	ExpiresAt time.Time `gorm:"not null" json:"expires_at"`
+	Used      bool      `gorm:"default:false" json:"used"`
+
+	User *User `gorm:"foreignKey:UserID" json:"-"`
+}
+
 // AuditLog represents a record-level audit trail entry
 type AuditLog struct {
 	ID             uuid.UUID   `gorm:"type:uuid;primary_key;default:gen_random_uuid()" json:"id"`

@@ -485,6 +485,8 @@ func setupRoutes(g *fastglue.Fastglue, app *handlers.App, lo logf.Logger, basePa
 		g.POST("/api/auth/register-self", app.RegisterSelf)
 		g.POST("/api/auth/refresh", app.RefreshToken)
 	}
+	g.POST("/api/auth/forgot-password", app.ForgotPassword)
+	g.POST("/api/auth/reset-password", app.ResetPassword)
 	g.POST("/api/auth/logout", app.Logout)
 	g.POST("/api/auth/switch-org", app.SwitchOrg)
 	g.GET("/api/auth/ws-token", app.GetWSToken)
@@ -524,6 +526,7 @@ func setupRoutes(g *fastglue.Fastglue, app *handlers.App, lo logf.Logger, basePa
 		// Skip auth for public routes
 		if path == "/health" || path == "/ready" ||
 			path == "/api/auth/login" || path == "/api/auth/register" || path == "/api/auth/register-self" || path == "/api/auth/refresh" ||
+			path == "/api/auth/forgot-password" || path == "/api/auth/reset-password" ||
 			path == "/api/auth/logout" || path == "/api/webhook" || path == "/ws" {
 			return r
 		}

@@ -116,10 +116,10 @@ const getStarted = () => {
   flex-direction: column;
 }
 
-/* Navbar */
 .navbar {
-  position: relative;
-  z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 50;
   display: flex;
   justify-content: space-between;
   align-items: center;

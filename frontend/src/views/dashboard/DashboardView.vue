@@ -750,7 +750,6 @@ onMounted(() => {
             @apply-custom="applyCustomRange"
           />
         </div>
-      </div>
     </header>
 
     <!-- Content -->

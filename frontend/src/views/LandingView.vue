@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router'
 import { Bot, BarChart3, Users, Zap, CheckCircle2, Globe, Shield, Smartphone } from 'lucide-vue-next'
 import { useSeo } from '@/composables/useSeo'
 import MarketingLayout from '@/components/layout/MarketingLayout.vue'
+import HeroSection from '@/components/HeroSection.vue'
 
 const router = useRouter()
 
@@ -20,54 +21,7 @@ const getStarted = () => {
 <template>
   <MarketingLayout>
     <!-- Hero Section -->
-    <main class="hero-section">
-      <div class="hero-content">
-        <div class="badge fade-in-up">
-          <span class="badge-dot"></span>
-          New: AI-Powered Chatbots & Visual Flow Builder
-        </div>
-        <h1 class="hero-title fade-in-up delay-1">
-          Modern Communication,<br />
-          <span class="text-gradient">Automated.</span>
-        </h1>
-        <p class="hero-subtitle fade-in-up delay-2">
-          Scale your business with the all-in-one WhatsApp Business Platform. Real-time chat, automated workflows, and rich analytics in one powerful dashboard.
-        </p>
-        <div class="hero-actions fade-in-up delay-3">
-          <button class="btn btn-primary btn-lg pulse-hover" @click="getStarted">
-            Start Free Trial
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-          <button class="btn btn-glass btn-lg" @click="getStarted">View Documentation</button>
-        </div>
-      </div>
-
-      <div class="hero-visual fade-in-up delay-4">
-        <div class="glass-panel mockup-panel">
-          <div class="window-header">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-          </div>
-          <div class="dashboard-mockup">
-            <div class="sidebar-mock">
-              <div class="sidebar-item active"></div>
-              <div class="sidebar-item"></div>
-              <div class="sidebar-item"></div>
-            </div>
-            <div class="main-mock">
-              <div class="mock-header"></div>
-              <div class="mock-cards">
-                <div class="mock-card card-animate-1"></div>
-                <div class="mock-card card-animate-2"></div>
-                <div class="mock-card card-animate-3"></div>
-              </div>
-              <div class="mock-chart chart-animate"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+    <HeroSection />
 
     <!-- Features Section -->
     <section id="features" class="section-container">

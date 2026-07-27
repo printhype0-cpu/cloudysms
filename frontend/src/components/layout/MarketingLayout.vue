@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { MessageSquare } from 'lucide-vue-next'
+import LiveChatWidget from '@/components/shared/LiveChatWidget.vue'
 
 const router = useRouter()
 
@@ -75,6 +76,9 @@ const getStarted = () => {
         <p>&copy; 2026 CloudySMS. All rights reserved.</p>
       </div>
     </footer>
+
+    <!-- Global Live Chat Widget -->
+    <LiveChatWidget />
   </div>
 </template>
 

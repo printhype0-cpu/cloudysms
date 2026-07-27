@@ -119,7 +119,7 @@ const sendMessage = async () => {
     isTyping.value = false
     
     // Simple mock responses
-    let response = "I'm a demo bot! In a real app, I would connect to the CloudySMS API to answer your questions."
+    let response = "Thanks for reaching out! Our team is currently assisting other customers. Please leave your email or WhatsApp number, and we'll get back to you shortly."
     
     if (userMessage.toLowerCase().includes('pricing') || userMessage.toLowerCase().includes('cost')) {
       response = "Our plans start at $0/mo for the Starter tier, and go up to $49/mo for the Pro tier!"

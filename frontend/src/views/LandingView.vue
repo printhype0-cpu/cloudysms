@@ -422,7 +422,7 @@ const getStarted = () => {
   z-index: 10;
   display: flex;
   align-items: center;
-  padding: 6rem 4rem;
+  padding: 6rem 1.5rem;
   gap: 4rem;
   max-width: 1400px;
   margin: 0 auto;
@@ -620,7 +620,7 @@ const getStarted = () => {
 
 /* Common Sections */
 .section-container {
-  padding: 6rem 4rem;
+  padding: 6rem 1.5rem;
   max-width: 1400px;
   margin: 0 auto;
   position: relative;

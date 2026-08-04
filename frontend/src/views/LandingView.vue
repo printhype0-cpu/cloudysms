@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Bot, BarChart3, Users, Zap, CheckCircle2, Globe, Shield, Smartphone } from 'lucide-vue-next'
 import { useSeo } from '@/composables/useSeo'
@@ -6,6 +7,7 @@ import MarketingLayout from '@/components/layout/MarketingLayout.vue'
 import HeroSection from '@/components/HeroSection.vue'
 
 const router = useRouter()
+const isAnnual = ref(false)
 
 // Add SEO tags
 useSeo({
@@ -254,13 +256,36 @@ const getStarted = () => {
       <div class="section-header text-center">
         <h2 class="section-title">Simple, transparent <span class="text-gradient">pricing</span></h2>
         <p class="section-subtitle">Start for free, upgrade when you need more power.</p>
+        
+        <!-- Billing Toggle -->
+        <div class="flex items-center justify-center gap-4 mt-8 mb-4">
+          <span :class="['text-sm font-medium transition-colors', !isAnnual ? 'text-[color:var(--text-main)]' : 'text-[color:var(--text-muted)]']">Monthly</span>
+          
+          <button 
+            @click="isAnnual = !isAnnual"
+            class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+            :class="isAnnual ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-700'"
+          >
+            <span 
+              class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
+              :class="isAnnual ? 'translate-x-6' : 'translate-x-1'"
+            />
+          </button>
+          
+          <span :class="['text-sm font-medium transition-colors flex items-center gap-1', isAnnual ? 'text-[color:var(--text-main)]' : 'text-[color:var(--text-muted)]']">
+            Annually
+            <span class="inline-flex items-center rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-400">
+              Save 20%
+            </span>
+          </span>
+        </div>
       </div>
       <div class="pricing-grid">
         <!-- Starter Plan -->
         <div class="pricing-card">
           <h3 class="plan-name">Starter</h3>
           <div class="plan-price">
-            <span class="currency">$</span><span class="amount">0</span><span class="period">/mo</span>
+            <span class="currency">₹</span><span class="amount">0</span><span class="period">/mo</span>
           </div>
           <p class="plan-desc">Perfect for small teams getting started.</p>
           <ul class="plan-features">
@@ -276,7 +301,7 @@ const getStarted = () => {
           <div class="popular-badge">Most Popular</div>
           <h3 class="plan-name">Pro</h3>
           <div class="plan-price">
-            <span class="currency">$</span><span class="amount">49</span><span class="period">/mo</span>
+            <span class="currency">₹</span><span class="amount">{{ isAnnual ? '3,199' : '3,999' }}</span><span class="period">/mo</span>
           </div>
           <p class="plan-desc">Everything you need for growing businesses.</p>
           <ul class="plan-features">

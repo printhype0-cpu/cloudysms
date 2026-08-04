@@ -91,6 +91,7 @@ const getStarted = () => {
         <h2 class="text-xl md:text-2xl font-bold text-[color:var(--text-main)] mb-3">Key Takeaway</h2>
         <ul class="list-disc pl-5 text-base md:text-lg text-[color:var(--text-muted)] leading-relaxed space-y-2">
           <li><strong>CloudySMS</strong> is the complete WhatsApp Business Platform designed for growing sales and support teams.</li>
+          <li>According to <a href="https://business.whatsapp.com/" target="_blank" rel="noopener noreferrer" class="text-emerald-600 hover:underline">official WhatsApp Business</a> reports, messages achieve up to a 98% open rate, making it an essential sales channel.</li>
           <li>By combining a shared team inbox, visual chatbot builder, and automated marketing campaigns, it helps you convert leads faster and deliver 24/7 customer support.</li>
           <li>Manage everything from one unified <router-link to="/dashboard" class="text-emerald-600 hover:underline">dashboard</router-link>.</li>
         </ul>

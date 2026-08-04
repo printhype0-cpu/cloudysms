@@ -86,14 +86,14 @@ const getStarted = () => {
     <HeroSection />
 
     <!-- Top Summary Answer (AEO Signal) -->
-    <section class="section-container pt-0 pb-12 text-center max-w-4xl mx-auto">
-      <div class="p-6 md:p-8 bg-slate-50/50 rounded-2xl border border-slate-100/50 backdrop-blur-sm">
-        <h2 class="text-xl md:text-2xl font-bold text-[color:var(--text-main)] mb-3">The ultimate WhatsApp marketing & support solution</h2>
-        <p class="text-base md:text-lg text-[color:var(--text-muted)] leading-relaxed">
-          <strong>Key Takeaway:</strong> CloudySMS is the complete WhatsApp Business Platform designed for growing sales and support teams. 
-          By combining a shared team inbox, visual chatbot builder, and automated marketing campaigns, 
-          it helps you convert leads faster and deliver 24/7 customer support—all from one unified <router-link to="/dashboard" class="text-emerald-600 hover:underline">dashboard</router-link>.
-        </p>
+    <section class="section-container pt-0 pb-12 max-w-4xl mx-auto">
+      <div class="p-6 md:p-8 bg-slate-50/50 rounded-2xl border border-slate-100/50 backdrop-blur-sm text-left">
+        <h2 class="text-xl md:text-2xl font-bold text-[color:var(--text-main)] mb-3">Key Takeaway</h2>
+        <ul class="list-disc pl-5 text-base md:text-lg text-[color:var(--text-muted)] leading-relaxed space-y-2">
+          <li><strong>CloudySMS</strong> is the complete WhatsApp Business Platform designed for growing sales and support teams.</li>
+          <li>By combining a shared team inbox, visual chatbot builder, and automated marketing campaigns, it helps you convert leads faster and deliver 24/7 customer support.</li>
+          <li>Manage everything from one unified <router-link to="/dashboard" class="text-emerald-600 hover:underline">dashboard</router-link>.</li>
+        </ul>
       </div>
     </section>
 

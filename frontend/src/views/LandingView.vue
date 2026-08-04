@@ -11,7 +11,20 @@ const router = useRouter()
 useSeo({
   title: 'Home',
   description: 'CloudySMS - The Modern, Open-Source WhatsApp Business Platform. Automate conversations, build chatbots, and engage your customers at scale.',
+  image: 'https://www.cloudysms.com/og-image.png',
   schemas: [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.cloudysms.com/"
+        }
+      ]
+    },
     {
       "@context": "https://schema.org",
       "@type": "Organization",

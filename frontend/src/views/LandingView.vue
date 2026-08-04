@@ -79,7 +79,7 @@ const getStarted = () => {
         <p class="text-base md:text-lg text-[color:var(--text-muted)] leading-relaxed">
           <strong>CloudySMS</strong> is the complete WhatsApp Business Platform designed for growing sales and support teams. 
           By combining a shared team inbox, visual chatbot builder, and automated marketing campaigns, 
-          it helps you convert leads faster and deliver 24/7 customer support—all from one unified dashboard.
+          it helps you convert leads faster and deliver 24/7 customer support—all from one unified <router-link to="/dashboard" class="text-emerald-600 hover:underline">dashboard</router-link>.
         </p>
       </div>
     </section>
@@ -288,7 +288,7 @@ const getStarted = () => {
           </p>
           <ul class="list-decimal pl-5 text-[color:var(--text-muted)] space-y-2">
             <li>Connect your WhatsApp Business API account.</li>
-            <li>Navigate to the "Automations" tab in your dashboard.</li>
+            <li>Navigate to the <router-link to="/chatbot" class="text-emerald-600 hover:underline">Automations</router-link> tab in your dashboard.</li>
             <li>Use the drag-and-drop builder to create keyword-triggered auto-replies.</li>
             <li>Publish your flow to start engaging customers instantly.</li>
           </ul>

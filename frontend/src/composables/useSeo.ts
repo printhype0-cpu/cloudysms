@@ -10,7 +10,7 @@ interface SeoOptions {
 }
 
 export function useSeo(options: SeoOptions = {}) {
-  const defaultTitle = 'Unlock Explosive Growth with WhatsApp | CloudySMS'
+  const defaultTitle = 'Turn WhatsApp into Your #1 Sales Channel | CloudySMS'
   const defaultDescription = 'CloudySMS - The Modern, Open-Source WhatsApp Business Platform. Automate conversations, build chatbots, and engage your customers at scale.'
   const defaultUrl = 'https://www.cloudysms.com'
   

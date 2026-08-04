@@ -22,7 +22,7 @@ useSeo({
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "Unlock Explosive Growth with WhatsApp | CloudySMS",
+      "name": "Turn WhatsApp into Your #1 Sales Channel | CloudySMS",
       "description": "CloudySMS - The Modern, Open-Source WhatsApp Business Platform. Automate conversations, build chatbots, and engage your customers at scale.",
       "publisher": {
         "@type": "Organization",

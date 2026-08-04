@@ -30,7 +30,24 @@ useSeo({
       "@type": "Organization",
       "name": "CloudySMS",
       "url": "https://www.cloudysms.com",
-      "logo": "https://www.cloudysms.com/favicon.svg"
+      "logo": "https://www.cloudysms.com/favicon.svg",
+      "sameAs": [
+        "https://twitter.com/cloudysms",
+        "https://github.com/cloudysms",
+        "https://www.linkedin.com/company/cloudysms"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "CloudySMS",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
     },
     {
       "@context": "https://schema.org",

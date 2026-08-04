@@ -90,7 +90,7 @@ const getStarted = () => {
       <div class="p-6 md:p-8 bg-slate-50/50 rounded-2xl border border-slate-100/50 backdrop-blur-sm">
         <h2 class="text-xl md:text-2xl font-bold text-[color:var(--text-main)] mb-3">The ultimate WhatsApp marketing & support solution</h2>
         <p class="text-base md:text-lg text-[color:var(--text-muted)] leading-relaxed">
-          <strong>CloudySMS</strong> is the complete WhatsApp Business Platform designed for growing sales and support teams. 
+          <strong>Key Takeaway:</strong> CloudySMS is the complete WhatsApp Business Platform designed for growing sales and support teams. 
           By combining a shared team inbox, visual chatbot builder, and automated marketing campaigns, 
           it helps you convert leads faster and deliver 24/7 customer support—all from one unified <router-link to="/dashboard" class="text-emerald-600 hover:underline">dashboard</router-link>.
         </p>
@@ -290,14 +290,14 @@ const getStarted = () => {
         <div class="bg-white p-6 rounded-xl border border-[color:var(--glass-border)] shadow-sm">
           <h3 class="text-xl font-bold mb-3 text-[color:var(--text-main)]">What is CloudySMS?</h3>
           <p class="text-[color:var(--text-muted)] leading-relaxed">
-            CloudySMS is a modern, open-source WhatsApp Business Platform designed for marketing and customer support teams to automate conversations, build chatbots, and send broadcast campaigns at scale.
+            <strong>Short answer:</strong> CloudySMS is a modern, open-source WhatsApp Business Platform designed for marketing and customer support teams to automate conversations, build chatbots, and send broadcast campaigns at scale.
           </p>
         </div>
 
         <div class="bg-white p-6 rounded-xl border border-[color:var(--glass-border)] shadow-sm">
           <h3 class="text-xl font-bold mb-3 text-[color:var(--text-main)]">How to automate WhatsApp messages?</h3>
           <p class="text-[color:var(--text-muted)] leading-relaxed mb-3">
-            With CloudySMS, you can automate WhatsApp messages using our Visual Flow Builder without writing any code. Follow these steps:
+            <strong>Short answer:</strong> With CloudySMS, you can automate WhatsApp messages using our Visual Flow Builder without writing any code. Follow these steps:
           </p>
           <ul class="list-decimal pl-5 text-[color:var(--text-muted)] space-y-2">
             <li>Connect your WhatsApp Business API account.</li>
@@ -310,7 +310,7 @@ const getStarted = () => {
         <div class="bg-white p-6 rounded-xl border border-[color:var(--glass-border)] shadow-sm">
           <h3 class="text-xl font-bold mb-3 text-[color:var(--text-main)]">Who is CloudySMS best for?</h3>
           <p class="text-[color:var(--text-muted)] leading-relaxed">
-            CloudySMS is best for e-commerce businesses, sales teams, and customer support centers that need to handle high volumes of WhatsApp messages, manage a shared team inbox, or run targeted marketing campaigns. It offers robust tools compared to the standard WhatsApp Business app.
+            <strong>Short answer:</strong> CloudySMS is best for e-commerce businesses, sales teams, and customer support centers that need to handle high volumes of WhatsApp messages, manage a shared team inbox, or run targeted marketing campaigns. It offers robust tools compared to the standard WhatsApp Business app.
           </p>
         </div>
 

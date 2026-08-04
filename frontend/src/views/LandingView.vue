@@ -10,7 +10,56 @@ const router = useRouter()
 // Add SEO tags
 useSeo({
   title: 'Home',
-  description: 'CloudySMS - The Modern, Open-Source WhatsApp Business Platform. Automate conversations, build chatbots, and engage your customers at scale.'
+  description: 'CloudySMS - The Modern, Open-Source WhatsApp Business Platform. Automate conversations, build chatbots, and engage your customers at scale.',
+  schemas: [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "CloudySMS",
+      "url": "https://www.cloudysms.com",
+      "logo": "https://www.cloudysms.com/favicon.svg"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Unlock Explosive Growth with WhatsApp | CloudySMS",
+      "description": "CloudySMS - The Modern, Open-Source WhatsApp Business Platform. Automate conversations, build chatbots, and engage your customers at scale.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "CloudySMS"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is CloudySMS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CloudySMS is a modern, open-source WhatsApp Business Platform designed for marketing and customer support teams to automate conversations, build chatbots, and send broadcast campaigns at scale."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How to automate WhatsApp messages?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "With CloudySMS, you can automate WhatsApp messages using our Visual Flow Builder. Simply drag and drop conversation blocks to create keyword-based auto-replies or AI-powered chatbots without writing any code."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is CloudySMS best for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CloudySMS is best for e-commerce businesses, sales teams, and customer support centers that need to handle high volumes of WhatsApp messages, manage a shared team inbox, or run targeted marketing campaigns."
+          }
+        }
+      ]
+    }
+  ]
 })
 
 const getStarted = () => {
@@ -22,6 +71,18 @@ const getStarted = () => {
   <MarketingLayout>
     <!-- Hero Section -->
     <HeroSection />
+
+    <!-- Top Summary Answer (AEO Signal) -->
+    <section class="section-container pt-0 pb-12 text-center max-w-4xl mx-auto">
+      <div class="p-6 md:p-8 bg-slate-50/50 rounded-2xl border border-slate-100/50 backdrop-blur-sm">
+        <h2 class="text-xl md:text-2xl font-bold text-[color:var(--text-main)] mb-3">The ultimate WhatsApp marketing & support solution</h2>
+        <p class="text-base md:text-lg text-[color:var(--text-muted)] leading-relaxed">
+          <strong>CloudySMS</strong> is the complete WhatsApp Business Platform designed for growing sales and support teams. 
+          By combining a shared team inbox, visual chatbot builder, and automated marketing campaigns, 
+          it helps you convert leads faster and deliver 24/7 customer support—all from one unified dashboard.
+        </p>
+      </div>
+    </section>
 
     <!-- Features Section -->
     <section id="features" class="section-container">
@@ -98,15 +159,24 @@ const getStarted = () => {
           <ul class="solutions-list">
             <li>
               <CheckCircle2 class="list-icon" />
-              <span><strong>Marketing:</strong> Drive conversions with targeted WhatsApp campaigns.</span>
+              <div>
+                <strong>Marketing & Sales Teams:</strong> 
+                <span class="block text-sm mt-1">Drive conversions with targeted WhatsApp broadcast campaigns, recover abandoned carts, and qualify leads automatically.</span>
+              </div>
             </li>
             <li>
               <CheckCircle2 class="list-icon" />
-              <span><strong>Support:</strong> Provide instant 24/7 support using AI chatbots.</span>
+              <div>
+                <strong>Customer Support:</strong> 
+                <span class="block text-sm mt-1">Provide instant 24/7 support using AI chatbots and manage complex queries with our collaborative team inbox.</span>
+              </div>
             </li>
             <li>
               <CheckCircle2 class="list-icon" />
-              <span><strong>Operations:</strong> Send automated transactional alerts and updates.</span>
+              <div>
+                <strong>E-commerce & Operations:</strong> 
+                <span class="block text-sm mt-1">Send automated transactional alerts, order updates, and appointment reminders using official <a href="https://developers.facebook.com/docs/whatsapp/" target="_blank" rel="noopener noreferrer" class="text-emerald-600 hover:underline">Meta API</a> templates.</span>
+              </div>
             </li>
           </ul>
         </div>
@@ -195,6 +265,74 @@ const getStarted = () => {
         </div>
       </div>
     </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section-container alternate-bg">
+      <div class="section-header text-center">
+        <h2 class="section-title">Frequently Asked <span class="text-gradient">Questions</span></h2>
+        <p class="section-subtitle">Everything you need to know about getting started with CloudySMS.</p>
+      </div>
+      <div class="max-w-3xl mx-auto flex flex-col gap-6">
+        
+        <div class="bg-white p-6 rounded-xl border border-[color:var(--glass-border)] shadow-sm">
+          <h3 class="text-xl font-bold mb-3 text-[color:var(--text-main)]">What is CloudySMS?</h3>
+          <p class="text-[color:var(--text-muted)] leading-relaxed">
+            CloudySMS is a modern, open-source WhatsApp Business Platform designed for marketing and customer support teams to automate conversations, build chatbots, and send broadcast campaigns at scale.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-[color:var(--glass-border)] shadow-sm">
+          <h3 class="text-xl font-bold mb-3 text-[color:var(--text-main)]">How to automate WhatsApp messages?</h3>
+          <p class="text-[color:var(--text-muted)] leading-relaxed mb-3">
+            With CloudySMS, you can automate WhatsApp messages using our Visual Flow Builder without writing any code. Follow these steps:
+          </p>
+          <ul class="list-decimal pl-5 text-[color:var(--text-muted)] space-y-2">
+            <li>Connect your WhatsApp Business API account.</li>
+            <li>Navigate to the "Automations" tab in your dashboard.</li>
+            <li>Use the drag-and-drop builder to create keyword-triggered auto-replies.</li>
+            <li>Publish your flow to start engaging customers instantly.</li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-[color:var(--glass-border)] shadow-sm">
+          <h3 class="text-xl font-bold mb-3 text-[color:var(--text-main)]">Who is CloudySMS best for?</h3>
+          <p class="text-[color:var(--text-muted)] leading-relaxed">
+            CloudySMS is best for e-commerce businesses, sales teams, and customer support centers that need to handle high volumes of WhatsApp messages, manage a shared team inbox, or run targeted marketing campaigns. It offers robust tools compared to the standard WhatsApp Business app.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Ownership & Footer -->
+    <footer class="section-container pt-12 pb-8 border-t border-[color:var(--glass-border)]">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+          <div class="logo mb-2">
+            <div class="logo-icon small">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"></path>
+                <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"></path>
+              </svg>
+            </div>
+            CloudySMS
+          </div>
+          <p class="text-sm text-[color:var(--text-muted)]">
+            Maintained by the <strong>CloudySMS Core Team</strong>. <br>
+            Empowering businesses with modern communication tools.
+          </p>
+          <p class="text-xs text-[color:var(--text-muted)] mt-2">
+            Last Updated: August 4, 2026
+          </p>
+        </div>
+        <div class="flex gap-6">
+          <router-link to="/features" class="text-sm text-[color:var(--text-muted)] hover:text-[color:var(--text-main)]">Features</router-link>
+          <router-link to="/pricing" class="text-sm text-[color:var(--text-muted)] hover:text-[color:var(--text-main)]">Pricing</router-link>
+          <router-link to="/contact" class="text-sm text-[color:var(--text-muted)] hover:text-[color:var(--text-main)]">Contact Sales</router-link>
+          <a href="https://github.com/cloudysms" target="_blank" rel="noopener noreferrer" class="text-sm text-[color:var(--text-muted)] hover:text-[color:var(--text-main)]">GitHub</a>
+        </div>
+      </div>
+    </footer>
 
   </MarketingLayout>
 </template>

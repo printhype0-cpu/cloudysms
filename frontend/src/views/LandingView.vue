@@ -121,62 +121,72 @@ const getStarted = () => {
         <h2 class="section-title">Everything you need to <span class="text-gradient">engage</span></h2>
         <p class="section-subtitle">Powerful tools designed for modern customer support and marketing teams.</p>
       </div>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon-wrapper blue">
-            <Bot class="feature-icon" />
+      <div class="bento-grid max-w-7xl mx-auto px-4 mt-8">
+        <!-- Visual Flow Builder: Large (Span 8) -->
+        <div class="bento-card bento-card-large animate-list-in group hover:-translate-y-1 transition-all" style="animation-delay: 0.1s;">
+          <div class="flex flex-col md:flex-row items-start md:items-center gap-6 h-full">
+            <div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center shrink-0 border border-blue-500/20 group-hover:scale-110 transition-transform">
+              <Bot class="w-8 h-8 text-blue-400" />
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold text-white mb-2">Visual Flow Builder</h3>
+              <p class="text-white/60 text-lg">Design complex conversational flows with a drag-and-drop interface. No coding required.</p>
+            </div>
           </div>
-          <h3 class="feature-title">Visual Flow Builder</h3>
-          <p class="feature-desc">Design complex conversational flows with a drag-and-drop interface. No coding required.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon-wrapper green">
-            <Users class="feature-icon" />
+        
+        <!-- Team Inbox: Small (Span 4) -->
+        <div class="bento-card bento-card-small animate-list-in group hover:-translate-y-1 transition-all" style="animation-delay: 0.2s;">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 border border-emerald-500/20 group-hover:scale-110 transition-transform">
+            <Users class="w-6 h-6 text-emerald-400" />
           </div>
-          <h3 class="feature-title">Team Inbox</h3>
-          <p class="feature-desc">Collaborate on customer queries in real-time. Assign tickets, leave internal notes, and resolve issues faster.</p>
+          <h3 class="text-xl font-bold text-white mb-2">Team Inbox</h3>
+          <p class="text-white/60">Collaborate on customer queries in real-time. Assign tickets and resolve issues faster.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon-wrapper purple">
-            <BarChart3 class="feature-icon" />
+
+        <!-- Automated Campaigns: Medium (Span 6) -->
+        <div class="bento-card bento-card-medium animate-list-in group hover:-translate-y-1 transition-all" style="animation-delay: 0.3s;">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4 border border-orange-500/20 group-hover:scale-110 transition-transform">
+            <Zap class="w-6 h-6 text-orange-400" />
           </div>
-          <h3 class="feature-title">Rich Analytics</h3>
-          <p class="feature-desc">Track agent performance, message delivery rates, and customer satisfaction with detailed insights.</p>
+          <h3 class="text-xl font-bold text-white mb-2">Automated Campaigns</h3>
+          <p class="text-white/60">Send personalized broadcast messages to segments of your audience and track engagement.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon-wrapper orange">
-            <Zap class="feature-icon" />
+
+        <!-- Rich Analytics: Medium (Span 6) -->
+        <div class="bento-card bento-card-medium animate-list-in group hover:-translate-y-1 transition-all" style="animation-delay: 0.4s;">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4 border border-purple-500/20 group-hover:scale-110 transition-transform">
+            <BarChart3 class="w-6 h-6 text-purple-400" />
           </div>
-          <h3 class="feature-title">Automated Campaigns</h3>
-          <p class="feature-desc">Send personalized broadcast messages to segments of your audience and track engagement.</p>
+          <h3 class="text-xl font-bold text-white mb-2">Rich Analytics</h3>
+          <p class="text-white/60">Track agent performance, message delivery rates, and customer satisfaction with detailed insights.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon-wrapper red">
-            <Shield class="feature-icon" />
+
+        <!-- API & Webhooks: Small (Span 4) -->
+        <div class="bento-card bento-card-small animate-list-in group hover:-translate-y-1 transition-all" style="animation-delay: 0.5s;">
+          <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center mb-3 border border-cyan-500/20 group-hover:scale-110 transition-transform">
+            <Globe class="w-5 h-5 text-cyan-400" />
           </div>
-          <h3 class="feature-title">Enterprise Security</h3>
-          <p class="feature-desc">Role-based access control, SSO integration, and detailed audit logs to keep your data secure.</p>
+          <h3 class="text-lg font-bold text-white mb-1">API & Webhooks</h3>
+          <p class="text-white/60 text-sm">Integrate seamlessly with your existing CRM.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon-wrapper cyan">
-            <Globe class="feature-icon" />
+
+        <!-- Enterprise Security: Small (Span 4) -->
+        <div class="bento-card bento-card-small animate-list-in group hover:-translate-y-1 transition-all" style="animation-delay: 0.6s;">
+          <div class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center mb-3 border border-red-500/20 group-hover:scale-110 transition-transform">
+            <Shield class="w-5 h-5 text-red-400" />
           </div>
-          <h3 class="feature-title">API & Webhooks</h3>
-          <p class="feature-desc">Integrate seamlessly with your existing CRM or backend systems using our robust developer API.</p>
+          <h3 class="text-lg font-bold text-white mb-1">Enterprise Security</h3>
+          <p class="text-white/60 text-sm">Role-based access control and detailed audit logs.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon-wrapper purple">
-            <Smartphone class="feature-icon" />
+        
+        <!-- Guaranteed Uptime: Small (Span 4) -->
+        <div class="bento-card bento-card-small animate-list-in group hover:-translate-y-1 transition-all" style="animation-delay: 0.7s;">
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-3 border border-emerald-500/20 group-hover:scale-110 transition-transform">
+            <CheckCircle2 class="w-5 h-5 text-emerald-400" />
           </div>
-          <h3 class="feature-title">Mobile App</h3>
-          <p class="feature-desc">Manage customer conversations on the go with our dedicated iOS and Android applications.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon-wrapper green">
-            <CheckCircle2 class="feature-icon" />
-          </div>
-          <h3 class="feature-title">Guaranteed Uptime</h3>
-          <p class="feature-desc">Enjoy a 99.99% uptime SLA to ensure your business never misses an important customer message.</p>
+          <h3 class="text-lg font-bold text-white mb-1">99.99% Uptime</h3>
+          <p class="text-white/60 text-sm">Never miss an important customer message.</p>
         </div>
       </div>
     </section>

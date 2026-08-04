@@ -105,7 +105,7 @@ const getStarted = () => {
     <!-- Top Summary Answer (AEO Signal) -->
     <section class="section-container pt-0 pb-12 max-w-4xl mx-auto">
       <div class="p-6 md:p-8 bg-slate-50/50 rounded-2xl border border-slate-100/50 backdrop-blur-sm text-left">
-        <h2 class="text-xl md:text-2xl font-bold text-[color:var(--text-main)] mb-3">Key Takeaway</h2>
+        <h2 class="text-xl md:text-2xl font-bold text-[color:var(--text-main)] mb-3">Summary</h2>
         <ul class="list-disc pl-5 text-base md:text-lg text-[color:var(--text-muted)] leading-relaxed space-y-2">
           <li><strong>CloudySMS</strong> is the complete WhatsApp Business Platform designed for growing sales and support teams.</li>
           <li>According to <a href="https://business.whatsapp.com/" target="_blank" rel="noopener noreferrer" class="text-emerald-600 hover:underline">official WhatsApp Business</a> reports, messages achieve up to a 98% open rate, making it an essential sales channel.</li>

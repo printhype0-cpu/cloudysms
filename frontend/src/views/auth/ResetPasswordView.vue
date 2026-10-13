@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter, useRoute, RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { toast } from 'vue-sonner'
-import { MessageSquare, Loader2, Lock } from 'lucide-vue-next'
+import { MessageSquare, Loader2, Lock, AlertCircle } from 'lucide-vue-next'
 import { useSeo } from '@/composables/useSeo'
 import api from '@/services/api'
 
@@ -20,13 +20,25 @@ const token = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const isLoading = ref(false)
+const isVerifying = ref(true)
+const tokenError = ref('')
 
-onMounted(() => {
-  if (route.query.token) {
-    token.value = route.query.token as string
+onMounted(async () => {
+  const rawToken = route.query.token as string
+  if (rawToken && rawToken.trim()) {
+    token.value = rawToken.trim()
+    try {
+      await api.get('/auth/verify-reset-token', {
+        params: { token: token.value }
+      })
+    } catch (error: any) {
+      tokenError.value = error.response?.data?.message || 'This password reset link is invalid or has expired.'
+    } finally {
+      isVerifying.value = false
+    }
   } else {
-    toast.error('Invalid or missing password reset token.')
-    router.push('/login')
+    tokenError.value = 'Missing password reset token. Please request a new link.'
+    isVerifying.value = false
   }
 })
 
@@ -58,6 +70,13 @@ const handleResetPassword = async () => {
   } catch (error: any) {
     const message = error.response?.data?.message || 'Failed to reset password'
     toast.error(message)
+    if (
+      message.toLowerCase().includes('expired') ||
+      message.toLowerCase().includes('already been used') ||
+      message.toLowerCase().includes('invalid')
+    ) {
+      tokenError.value = message
+    }
   } finally {
     isLoading.value = false
   }
@@ -72,10 +91,35 @@ const handleResetPassword = async () => {
           <MessageSquare class="logo-icon" />
         </div>
         <h2 class="auth-title">Set New Password</h2>
-        <p class="auth-subtitle">Please enter your new password</p>
+        <p class="auth-subtitle">
+          {{ tokenError ? 'Reset link issue' : 'Please enter your new password' }}
+        </p>
       </div>
 
-      <form @submit.prevent="handleResetPassword" class="auth-form">
+      <!-- Verifying state -->
+      <div v-if="isVerifying" class="text-center py-8">
+        <Loader2 class="spinner mx-auto mb-3 text-[var(--primary-color)]" />
+        <p class="text-sm text-gray-400">Verifying reset link...</p>
+      </div>
+
+      <!-- Token Invalid / Expired State -->
+      <div v-else-if="tokenError" class="sent-message text-center">
+        <div class="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-500/10 text-red-500">
+          <AlertCircle class="w-6 h-6" />
+        </div>
+        <p class="text-sm text-gray-300 mb-6">
+          {{ tokenError }}
+        </p>
+        <RouterLink to="/forgot-password" class="btn btn-primary btn-block mb-3">
+          Request New Reset Link
+        </RouterLink>
+        <RouterLink to="/login" class="back-link">
+          Back to login
+        </RouterLink>
+      </div>
+
+      <!-- Form state -->
+      <form v-else @submit.prevent="handleResetPassword" class="auth-form">
         <div class="form-group">
           <label for="password" class="form-label">New Password</label>
           <div class="input-wrapper">
@@ -233,6 +277,19 @@ const handleResetPassword = async () => {
 
 .btn-block {
   width: 100%;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--primary-light);
 }
 
 .spinner {

@@ -86,6 +86,14 @@ type BaseModel struct {
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at,omitempty"`
 }
 
+// BeforeCreate ensures UUID primary key is generated if not set
+func (b *BaseModel) BeforeCreate(tx *gorm.DB) error {
+	if b.ID == uuid.Nil {
+		b.ID = uuid.New()
+	}
+	return nil
+}
+
 // Organization represents a tenant in the multi-tenant system
 type Organization struct {
 	BaseModel
@@ -526,6 +534,18 @@ type PasswordResetToken struct {
 	Used      bool      `gorm:"default:false" json:"used"`
 
 	User *User `gorm:"foreignKey:UserID" json:"-"`
+}
+
+func (PasswordResetToken) TableName() string {
+	return "password_reset_tokens"
+}
+
+// BeforeCreate ensures PasswordResetToken has a valid UUID
+func (p *PasswordResetToken) BeforeCreate(tx *gorm.DB) error {
+	if p.ID == uuid.Nil {
+		p.ID = uuid.New()
+	}
+	return nil
 }
 
 // AuditLog represents a record-level audit trail entry

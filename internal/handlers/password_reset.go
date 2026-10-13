@@ -5,8 +5,11 @@ import (
 	"encoding/hex"
 	"fmt"
 	"net/smtp"
+	"net/url"
+	"strings"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/shridarpatil/whatomate/internal/models"
 	"github.com/valyala/fasthttp"
 	"github.com/zerodha/fastglue"
@@ -31,6 +34,27 @@ func generateSecureToken() (string, error) {
 	return hex.EncodeToString(bytes), nil
 }
 
+// getBaseURL extracts the client base URL from the request or falls back to port 3000
+func getBaseURL(r *fastglue.Request) string {
+	if origin := string(r.RequestCtx.Request.Header.Peek("Origin")); origin != "" {
+		return strings.TrimRight(origin, "/")
+	}
+	if referer := string(r.RequestCtx.Request.Header.Peek("Referer")); referer != "" {
+		if u, err := url.Parse(referer); err == nil && u.Host != "" {
+			return fmt.Sprintf("%s://%s", u.Scheme, u.Host)
+		}
+	}
+	host := string(r.RequestCtx.Host())
+	if host != "" {
+		scheme := "http"
+		if string(r.RequestCtx.Request.Header.Peek("X-Forwarded-Proto")) == "https" || r.RequestCtx.IsTLS() {
+			scheme = "https"
+		}
+		return fmt.Sprintf("%s://%s", scheme, host)
+	}
+	return "http://localhost:3000"
+}
+
 // ForgotPassword handles sending the password reset email/link
 func (a *App) ForgotPassword(r *fastglue.Request) error {
 	var req ForgotPasswordRequest
@@ -38,6 +62,7 @@ func (a *App) ForgotPassword(r *fastglue.Request) error {
 		return nil
 	}
 
+	req.Email = strings.TrimSpace(req.Email)
 	if req.Email == "" {
 		return r.SendErrorEnvelope(fasthttp.StatusBadRequest, "Email is required", nil, "")
 	}
@@ -56,10 +81,16 @@ func (a *App) ForgotPassword(r *fastglue.Request) error {
 		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Internal error", nil, "")
 	}
 
+	// Invalidate any previously unused reset tokens for this user
+	_ = a.DB.Model(&models.PasswordResetToken{}).
+		Where("user_id = ? AND used = ?", user.ID, false).
+		Update("used", true).Error
+
 	resetToken := models.PasswordResetToken{
+		BaseModel: models.BaseModel{ID: uuid.New()},
 		UserID:    user.ID,
 		Token:     tokenStr,
-		ExpiresAt: time.Now().Add(1 * time.Hour),
+		ExpiresAt: time.Now().UTC().Add(24 * time.Hour),
 		Used:      false,
 	}
 
@@ -68,11 +99,9 @@ func (a *App) ForgotPassword(r *fastglue.Request) error {
 		return r.SendErrorEnvelope(fasthttp.StatusInternalServerError, "Internal error", nil, "")
 	}
 
-	// In a real application, you would generate a full URL
-	// E.g. https://yourdomain.com/reset-password?token=...
-	// We'll use the server's base host or assume the frontend is on the same domain.
-	resetLink := fmt.Sprintf("/reset-password?token=%s", tokenStr)
-	
+	baseURL := getBaseURL(r)
+	resetLink := fmt.Sprintf("%s/reset-password?token=%s", baseURL, tokenStr)
+
 	if a.Config.SMTP.Host != "" && a.Config.SMTP.Port > 0 {
 		// Send email via SMTP
 		auth := smtp.PlainAuth("", a.Config.SMTP.Username, a.Config.SMTP.Password, a.Config.SMTP.Host)
@@ -84,14 +113,14 @@ func (a *App) ForgotPassword(r *fastglue.Request) error {
 
 		subject := "Subject: Reset Your Password\r\n"
 		mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
-		
+
 		body := fmt.Sprintf(`
 			<p>Hello %s,</p>
 			<p>We received a request to reset your password.</p>
 			<p>Click the link below to reset it:</p>
 			<p><a href="%s">Reset Password</a></p>
-			<p>This link will expire in 1 hour.</p>
-		`, user.FullName, "http://localhost:5173"+resetLink) // using localhost for dev if no proper base URL is configured
+			<p>This link will expire in 24 hours.</p>
+		`, user.FullName, resetLink)
 
 		msg := []byte(subject + mime + body)
 
@@ -106,12 +135,37 @@ func (a *App) ForgotPassword(r *fastglue.Request) error {
 		a.Log.Info("========================================")
 		a.Log.Info("PASSWORD RESET LINK GENERATED (NO SMTP CONFIG)")
 		a.Log.Info("Email: " + user.Email)
-		a.Log.Info("Link:  http://localhost:5173" + resetLink)
+		a.Log.Info("Link:  " + resetLink)
 		a.Log.Info("========================================")
 	}
 
 	return r.SendEnvelope(map[string]interface{}{
 		"message": "If that email address is in our database, we will send you an email to reset your password.",
+	})
+}
+
+// VerifyResetToken validates whether a token is valid, unexpired, and unused
+func (a *App) VerifyResetToken(r *fastglue.Request) error {
+	tokenStr := strings.TrimSpace(string(r.RequestCtx.QueryArgs().Peek("token")))
+	if tokenStr == "" {
+		return r.SendErrorEnvelope(fasthttp.StatusBadRequest, "Reset token is required", nil, "")
+	}
+
+	var token models.PasswordResetToken
+	if err := a.DB.Where("token = ?", tokenStr).First(&token).Error; err != nil {
+		return r.SendErrorEnvelope(fasthttp.StatusBadRequest, "Invalid password reset link. Please request a new one.", nil, "")
+	}
+
+	if token.Used {
+		return r.SendErrorEnvelope(fasthttp.StatusBadRequest, "This password reset link has already been used.", nil, "")
+	}
+
+	if time.Now().UTC().After(token.ExpiresAt.UTC()) {
+		return r.SendErrorEnvelope(fasthttp.StatusBadRequest, "This password reset link has expired. Please request a new one.", nil, "")
+	}
+
+	return r.SendEnvelope(map[string]interface{}{
+		"valid": true,
 	})
 }
 
@@ -122,6 +176,7 @@ func (a *App) ResetPassword(r *fastglue.Request) error {
 		return nil
 	}
 
+	req.Token = strings.TrimSpace(req.Token)
 	if req.Token == "" || req.Password == "" {
 		return r.SendErrorEnvelope(fasthttp.StatusBadRequest, "Token and new password are required", nil, "")
 	}
@@ -137,9 +192,19 @@ func (a *App) ResetPassword(r *fastglue.Request) error {
 	}
 
 	var token models.PasswordResetToken
-	if err := tx.Where("token = ? AND used = ? AND expires_at > ?", req.Token, false, time.Now()).First(&token).Error; err != nil {
+	if err := tx.Where("token = ?", req.Token).First(&token).Error; err != nil {
 		tx.Rollback()
-		return r.SendErrorEnvelope(fasthttp.StatusBadRequest, "Invalid or expired reset token", nil, "")
+		return r.SendErrorEnvelope(fasthttp.StatusBadRequest, "Invalid password reset link. Please request a new one.", nil, "")
+	}
+
+	if token.Used {
+		tx.Rollback()
+		return r.SendErrorEnvelope(fasthttp.StatusBadRequest, "This password reset link has already been used.", nil, "")
+	}
+
+	if time.Now().UTC().After(token.ExpiresAt.UTC()) {
+		tx.Rollback()
+		return r.SendErrorEnvelope(fasthttp.StatusBadRequest, "This password reset link has expired. Please request a new one.", nil, "")
 	}
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
